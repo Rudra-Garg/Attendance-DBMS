@@ -26,25 +26,25 @@ nav {
     padding: 25px 0;
 }
 
-/* Different colors for tabs */
+
 nav a:nth-child(1) {
-    background-color: #920606; /* Blue color for AI */
+    background-color: #920606;
 }
 
 nav a:nth-child(2) {
-    background-color: #889307; /* Red color for Algorithms */
+    background-color: #889307; 
 }
 
 nav a:nth-child(3) {
-    background-color: #0ea34c; /* Green color for DBMS */
+    background-color: #0ea34c; 
 }
 
 nav a:nth-child(4) {
-    background-color: #a76a09; /* Orange color for ML */
+    background-color: #a76a09; 
 }
 
 nav a:nth-child(5) {
-    background-color: #9b59b6; /* Purple color for Networking */
+    background-color: #9b59b6; 
 }
 
 nav a {
