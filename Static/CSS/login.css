@@ -124,7 +124,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('..\Images\backgroundLogin.jpg');
+  background: linear-gradient(to right,rgba(59, 127, 230, 0.404),rgba(251, 251, 251, 0.509), rgba(245, 120, 120, 0.272));
   background-size: cover;
   background-position: center;
   height: 100vh;
