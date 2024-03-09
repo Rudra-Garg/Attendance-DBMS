@@ -2,17 +2,21 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('../Images/backgroundStudent.avif');
+    /* background-image: url('../Images/backgroundStudent.avif'); */
+    background-image: url('../Images/backgroundStudent.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 header {
-   color: #030303;
-    background: linear-gradient(to right,rgba(27, 72, 177, 0.651),rgba(232, 229, 229, 0.509), rgba(120, 128, 245, 0.272));
+    
+     color: #ffffff; 
+    /* background: linear-gradient(to right,rgba(27, 72, 177, 0.651),rgba(232, 229, 229, 0.509), rgba(120, 128, 245, 0.272)); */
     text-align: center;
-    padding: 20px 0;
+    font-size: 22px;
+    padding: 26px 0;
+    /* font-weight: bolder; */
 }
 
 h1 {
@@ -20,7 +24,7 @@ h1 {
 }
 /*for600*/
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 360px) and (max-height: 800px) {
   body {
     font-size: 14px;
   }
@@ -40,40 +44,45 @@ h1 {
 nav {
     display: flex;
     justify-content: center;
+    
     background-color: rgba(40, 55, 71, 0.8);
-    padding: 25px 0;
+    padding: 15px 0;
 }
 
 nav button {
     text-decoration: none;
-    color: #ecf0f1;
-    font-size: 24px;
+    color: #ffffff;
+    font-size: 19px;
     font-weight: bolder;
-    border: 2px solid #000000;
+    /* border: 2px solid #000000; */
     border-radius: 10px;
-    padding: 20px 30px;
-    margin: 0 20px;
-    transition: background-color 0.1s ease;
+    padding: 12px 20px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+    border: none;
 }
 
 nav button:nth-child(1) {
-    background-color: #920606;
+    background-color: #3f8bbe8c;
+    
 }
 
 nav button:nth-child(2) {
-    background-color: #889307;
+    background-color: #3f8bbe8c;
+    
 }
 
 nav button:nth-child(3) {
-    background-color: #0ea34c;
+    background-color: #3f8bbe8c;
 }
 
 nav button:nth-child(4) {
-    background-color: #a76a09;
+    background-color: #3f8bbe8c;
 }
 
 nav button:nth-child(5) {
-    background-color: #9b59b6;
+    background-color: #3f8bbe8c;
+    
 }
 
 nav button:hover {
@@ -88,10 +97,11 @@ section.Attendance-Section {
 
 .Attendance-Box {
     background-color: #ffffff; 
-    border: 2px solid #3498db;
+    /* border: 2px solid #3498db; */
     border-radius: 20px;
     padding: 20px; 
     width: 50%;
+    box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.2), 0 5px 5px  0 rgba(0, 0, 0, 0.24);
     margin: 0 auto;
 }
 
