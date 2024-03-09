@@ -9,8 +9,8 @@ body {
 }
 
 header {
-    background-color: rgba(52, 152, 219, 0.8);
-    color: #fff;
+   color: #030303;
+    background: linear-gradient(to right,rgba(27, 72, 177, 0.651),rgba(232, 229, 229, 0.509), rgba(120, 128, 245, 0.272));
     text-align: center;
     padding: 20px 0;
 }
