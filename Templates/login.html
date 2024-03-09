@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log in</title>
   <link rel="stylesheet" href="..\Static\CSS\login.css">
-  <script src="login.js"></script>
+  <!-- <link rel="stylesheet" href="..\Static\CSS\login.css"> -->
+  <script src="../Static/Scripts/login.js"></script>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-image: url('..\Images\backgroundLogin.jpg');
+      background: linear-gradient(to right,rgba(59, 127, 230, 0.404),rgba(251, 251, 251, 0.753), rgba(161, 42, 42, 0.559));
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -23,10 +24,10 @@
     }
 
     body:hover {
-      background-color: #a0cedc;
+      background-color: #1e161697;
     }
 
-    @keyframes backgroundAnimation {
+    /* @keyframes backgroundAnimation {
       from {
         filter: brightness(100%);
       }
@@ -34,12 +35,12 @@
       to {
         filter: brightness(80%);
       }
-    }
+    } */
 
     .form {
       position: relative;
       z-index: 1;
-      background: #FFFFFF;
+      background: #ffffff;
       max-width: 360px;
       margin: 0 auto 100px;
       padding: 45px;
@@ -76,9 +77,9 @@
       cursor: pointer;
     }
 
-    .form button:hover {
+    /* .form button:hover {
       background: #57abc398;
-    }
+    } */
 
     #heading {
       color: transparent;
