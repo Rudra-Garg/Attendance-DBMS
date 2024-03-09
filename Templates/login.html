@@ -6,22 +6,100 @@
   <title>Log in</title>
   <link rel="stylesheet" href="login.css">
   <script src="login.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('backgroundIMG.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: backgroundAnimation 20s infinite alternate;
+      transition: background-color 0.5s ease; /* Added transition */
+    }
+
+    body:hover {
+      background-color: #a0cedc; /* Change to the desired hover color */
+    }
+
+    @keyframes backgroundAnimation {
+      from {
+        filter: brightness(100%);
+      }
+
+      to {
+        filter: brightness(80%);
+      }
+    }
+
+    .form {
+      position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      max-width: 360px;
+      margin: 0 auto 100px;
+      padding: 45px;
+      text-align: center;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .form:hover {
+      transform: translateY(-10px);
+      opacity: 0.9;
+    }
+
+    .form input, .form button {
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .form input:hover, .form button:hover {
+      transform: scale(1.05);
+    }
+
+    .form button {
+      font-family: "Roboto", sans-serif;
+      text-transform: uppercase;
+      outline: 0;
+      background: #f075d5a8;
+      width: 100%;
+      border: 0;
+      padding: 15px;
+      color: #FFFFFF;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .form button:hover {
+      background: #57abc398;
+    }
+
+    #heading {
+      color: transparent;
+      font-size: 45px;
+      font-weight: bolder;
+      background: linear-gradient(to right, pink, rgb(95, 95, 222));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
 </head>
 <body>
   <div class="login-page">
     <div class="form">
       <form class="login-form">
-        <h1 id="heading">Sign in</h3>
+        <h1 id="heading">Sign in</h1>
         <input type="text" placeholder="userID" id="UserName"/>
         <input type="password" placeholder="password" id="Password"/>
-        <button id="loginBtn" >login</button>
-        
+        <button id="loginBtn">login</button>
       </form>
     </div>
   </div>
 </body>
 </html>
-
-
-
-
