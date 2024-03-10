@@ -12,23 +12,29 @@
         <h1>YOUR ATTENDANCE</h1>
     </header>
 
-    <nav>
-        <button>AI</button>
-        <button>Algorithms</button>
-        <button>DBMS</button>
-        <button>ML</button>
-        <button>Networking</button>
+    <nav id="subjectNav">
+        <!-- Subject buttons will be dynamically inserted here -->
     </nav>
 
     <section class="Attendance-Section">
-        <div class="Attendance-Box">
-            <h2>ATTENDANCE FOR THE SUBJECT</h2>
-            <p>ATTENDANCE BOX</p>
-        </div>
+        <h2>ATTENDANCE FOR SUBJECTS</h2>
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Attendance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Attendance data will be dynamically inserted here -->
+            </tbody>
+        </table>
     </section>
 
     <footer>
-        YEAR 2024-25 
+        YEAR 2024-25
     </footer>
+
+    <script src="/static/Scripts/student.js"></script>
 </body>
 </html>

@@ -26,14 +26,12 @@ document.getElementById('loginBtn').addEventListener('click', function (event) {
             }
         })
         .then(data => {
-            console.log(data);
-            // Handle successful login response
             console.log('Login successful:', data);
             // Check user type and redirect accordingly
             if (data.usertype === 'Student') {
-                window.location.href = '/student'; // Redirect to student webpage
+                window.location.href = '/student?userID=' + data.userID; // Redirect to student webpage with userID
             } else if (data.usertype === 'Faculty') {
-                window.location.href = '/faculty'; // Redirect to faculty webpage
+                window.location.href = '/faculty?userID=' + data.userID;  // Redirect to faculty webpage
             } else {
                 console.error('Unknown user type');
                 // Handle unknown user type error

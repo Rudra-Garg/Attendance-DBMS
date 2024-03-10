@@ -12,35 +12,31 @@
         <h1>FACULTY PORTAL</h1>
     </header>
 
-    
-    <nav>
-        <button>AI</button>
-        <button>Algorithms</button>
-        <button>DBMS</button>
-        <button>ML</button>
-        <button>Networking</button>
+    <nav id="subjectNav">
+        <!-- Subject buttons will be dynamically inserted here -->
     </nav>
-    
-    <button class="nextBtn" >Next</button>
-    <button class="backBtn" >Back</button>
+
+    <button class="nextBtn">Next</button>
+    <button class="backBtn">Back</button>
     <section class="attendance-section">
         <div class="attendance-box">
             <h2>MARK ATTENDANCE</h2>
             <div class="attendanceMark">
-              <p>Name of student</p>
-              <p>roll number</p> 
-              <label for="absent">Absent</label>
-              <input id="absent" type="radio" name="stat">
-              <label for="present">Present</label>
-              <input id="present" type="radio" name="stat">
-            <button class="submit">Mark</button>
+                <p id="studentName">Name of student</p>
+                <p id="rollNumber">Roll number</p>
+                <label for="absent">Absent</label>
+                <input id="absent" type="radio" name="stat">
+                <label for="present">Present</label>
+                <input id="present" type="radio" name="stat">
+                <button class="submit">Mark</button>
             </div>
-            
         </div>
     </section>
 
     <footer>
-        YEAR 2024-25 
+        YEAR 2024-25
     </footer>
+
+    <script src="/static/Scripts/faculty.js"></script>
 </body>
 </html>
