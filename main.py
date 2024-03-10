@@ -14,13 +14,23 @@ db = mysql.connector.connect(
 cursor = db.cursor(dictionary=True)
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/')
 def login_page():
     return render_template('login.html')
 
 
-# Endpoint to retrieve all students
-@app.route('/students', methods=['GET'])
+@app.route('/student')
+def student_page():
+    return render_template('student.html')
+
+
+@app.route('/faculty')
+def faculty_page():
+    return render_template('faculty.html')
+
+
+
+@app.route('/getstudents', methods=['GET'])
 def get_students():
     cursor.execute("SELECT * FROM student")
     students = cursor.fetchall()
@@ -28,7 +38,7 @@ def get_students():
 
 
 # Endpoint to retrieve all faculty members
-@app.route('/faculty', methods=['GET'])
+@app.route('/getfaculty', methods=['GET'])
 def get_faculty():
     cursor.execute("SELECT * FROM faculty")
     faculty = cursor.fetchall()
@@ -36,14 +46,13 @@ def get_faculty():
 
 
 # Endpoint to retrieve attendance records
-@app.route('/attendance', methods=['GET'])
+@app.route('/getattendance', methods=['GET'])
 def get_attendance():
     cursor.execute("SELECT * FROM attendance")
     attendance = cursor.fetchall()
     return jsonify(attendance)
 
 
-# Endpoint to log in
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()

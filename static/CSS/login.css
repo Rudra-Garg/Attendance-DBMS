@@ -1,0 +1,80 @@
+/* @import url(https://fonts.googleapis.com/css?family=Roboto:300); */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  /* background-image: url('..\Images\backgroundLogin.jpg'); */
+  /* background-image: src('../Images/backgroundLogin.jpg'); */
+  background: linear-gradient(to right,rgba(59, 127, 230, 0.404),rgba(251, 251, 251, 0.509), rgba(245, 120, 120, 0.272));
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #debedb53;
+  width: 100%;
+  border: 0;
+  color: #000000b4;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: bold;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #f075d5a8;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 15px;
+  /* font-weight: bolder; */
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,.form button:active,.form button:focus {
+  background: #f075d5e0;
+} 
+
+#heading{
+  /* color: #dd23e7; */
+  /* opacity: 0.8; */
+  /* color: #fefefe; */ 
+  color: transparent;
+  font-size: 45px;
+  font-weight: bolder;
+  background: linear-gradient(to right,pink, rgb(95, 95, 222));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer; */
+
+}
+
