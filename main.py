@@ -1,9 +1,8 @@
-from flask import *
 import mysql.connector
+from flask import *
 
 app = Flask(__name__)
 
-# Configure MySQL connection
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -29,8 +28,7 @@ def faculty_page():
     return render_template('faculty.html')
 
 
-
-@app.route('/getstudents', methods=['GET'])
+@app.route('/getStudents', methods=['GET'])
 def get_students():
     cursor.execute("SELECT * FROM student")
     students = cursor.fetchall()
@@ -38,7 +36,7 @@ def get_students():
 
 
 # Endpoint to retrieve all faculty members
-@app.route('/getfaculty', methods=['GET'])
+@app.route('/getFaculty', methods=['GET'])
 def get_faculty():
     cursor.execute("SELECT * FROM faculty")
     faculty = cursor.fetchall()
@@ -46,7 +44,7 @@ def get_faculty():
 
 
 # Endpoint to retrieve attendance records
-@app.route('/getattendance', methods=['GET'])
+@app.route('/getAttendance', methods=['GET'])
 def get_attendance():
     cursor.execute("SELECT * FROM attendance")
     attendance = cursor.fetchall()
@@ -59,12 +57,20 @@ def login():
     username = data.get('username')
     password = data.get('password')
 
+    user = userType(username, password)
+    if user:
+        return jsonify({'message': 'Login successful', 'usertype': user}), 200
+    else:
+        return jsonify({'message': 'Invalid username or password'}), 401
+
+
+def userType(username, password):
     cursor.execute("SELECT * FROM login WHERE userName = %s AND password = %s", (username, password))
     user = cursor.fetchone()
     if user:
-        return jsonify({'message': 'Login successful', 'user': user}), 200
+        return user['userType']
     else:
-        return jsonify({'message': 'Invalid username or password'}), 401
+        return None
 
 
 if __name__ == '__main__':

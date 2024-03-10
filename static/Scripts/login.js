@@ -1,34 +1,57 @@
+document.getElementById('loginBtn').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
 
-// function authenticate(){
-//   var name = document.getElementById('UserName').value;
-//         var password = document.getElementById('Password').value;
-//         console.log(name);
-//         console.log(password);
-//         window.open = 'student/test.html'
-// } 
+    var username = document.getElementById('UserName').value;
+    var password = document.getElementById('Password').value;
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Find the button element
-  var button = document.getElementById("loginBtn");
+    // Create an object with username and password
+    var data = {
+        username: username,
+        password: password
+    };
 
-  // Add a click event listener to the button
-  button.addEventListener("click", function() {
-      // Open a new window
-       window.open("student/test.html", "_blank");
-      // window.location.href = "student/test.html";
-  });
+    // Send a POST request to the server
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Parse response JSON data
+            } else {
+                throw new Error('Failed to login');
+            }
+        })
+        .then(data => {
+            console.log(data);
+            // Handle successful login response
+            console.log('Login successful:', data);
+            // Check user type and redirect accordingly
+            if (data.usertype === 'Student') {
+                window.location.href = '/student'; // Redirect to student webpage
+            } else if (data.usertype === 'Faculty') {
+                window.location.href = '/faculty'; // Redirect to faculty webpage
+            } else {
+                console.error('Unknown user type');
+                // Handle unknown user type error
+            }
+        })
+        .catch(error => {
+            // Handle login error
+            console.error('Login failed:', error);
+            // Display error message to the user
+            if (error.message === 'Invalid username or password') {
+                // Display error message for invalid username or password
+                // You can use JavaScript to update HTML elements to display the error message
+                // For example:
+                document.getElementById('errorMessage').innerText = 'Invalid username or password';
+            } else {
+                // Display generic error message for other errors
+                // For example:
+                document.getElementById('errorMessage').innerText = 'Failed to login. Please try again later.';
+            }
+        });
 });
-
-
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Find the button element
-//   var button = document.getElementById("loginBtn");
-
-//   // Add a click event listener to the button
-//   button.addEventListener("click", function(event) {
-//       // Prevent the default behavior (page reload)
-//       event.preventDefault();
-
-//       // Your custom JavaScript code here
-//   });
-// });
