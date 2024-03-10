@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const userID = urlParams.get('userID');
 
     // Function to fetch faculty details using the user ID
-    function fetchStudentDetails() {
-        fetch('/getStudentDetails?userID=' + userID) // Replace with your actual endpoint to fetch faculty details
+    function fetchFacultyDetails() {
+        fetch('/getFacultyDetails?userID=' + userID) // Replace with your actual endpoint to fetch faculty details
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to fetch subject buttons for the faculty
     function fetchSubjectButtons() {
-        fetch('/getStudentSubjects?userID=' + userID) // Replace with your actual endpoint to fetch faculty subjects
+        fetch('/getFacultySubjects?userID=' + userID) // Replace with your actual endpoint to fetch faculty subjects
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to fetch attendance data for the faculty
     function fetchAttendanceData() {
-        fetch('/getStudentAttendance?userID=' + userID) // Replace with your actual endpoint to fetch faculty    attendance
+        fetch('/getFacultyAttendance?userID=' + userID) // Replace with your actual endpoint to fetch faculty    attendance
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -82,8 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Call fetchStudentDetails function when the page loads
-    // fetchStudentDetails();
+    // Call fetchFacultyDetails function when the page loads
+    // fetchFacultyDetails();
 
     // Call fetchSubjectButtons function when the page loads
     setTimeout(fetchSubjectButtons, 1000);

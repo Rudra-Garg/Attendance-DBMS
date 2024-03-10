@@ -117,7 +117,7 @@ def get_faculty_subjects():
     return jsonify(subjects)
 
 
-@app.route('/getfacultyAttendance', methods=['GET'])
+@app.route('/getFacultyAttendance', methods=['GET'])
 def get_faculty_attendance():
     userID = request.args.get('userID')
     cursor.execute("SELECT subject, status, date FROM attendance WHERE facultyId = %s", (userID,))
