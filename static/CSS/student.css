@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     /* background-image: url('../Images/backgroundStudent.avif'); */
-    background-image: url('../Images/backgroundStudent.avif');
+    background-image: url('../Images/backgroundStudent.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -11,7 +11,7 @@ body {
 
 header {
     
-     color: #181414;
+     color: #ffffff;
     /* background: linear-gradient(to right,rgba(27, 72, 177, 0.651),rgba(232, 229, 229, 0.509), rgba(120, 128, 245, 0.272)); */
     text-align: center;
     font-size: 22px;
