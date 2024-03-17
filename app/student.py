@@ -46,6 +46,7 @@ def get_student_attendance():
     cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s",
                    (userID, subject))
     attendance = cursor.fetchall()
+    print(attendance)
     return jsonify(attendance)
 
 

@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .then(attendance => {
+                console.log(attendance)
                 const tableBody = document.querySelector('#attendanceTable tbody');
                 tableBody.innerHTML = ''; // Clear existing table rows
                 attendance.forEach(record => {
