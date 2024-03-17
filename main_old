@@ -1,0 +1,173 @@
+import mysql.connector
+from flask import *
+
+app = Flask(__name__)
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="0000",
+    database="attendance_system"
+)
+
+cursor = db.cursor(dictionary=True)
+
+
+@app.route('/')
+def login_page():
+    return render_template('login.html')
+
+
+@app.route('/student')
+def student_page():
+    userID = request.args.get('userID')  # Retrieve user ID from query parameter
+    return render_template('student.html', userID=userID)
+
+
+@app.route('/faculty')
+def faculty_page():
+    userID = request.args.get('userID')  # Retrieve user ID from query parameter
+    return render_template('faculty.html', userID=userID)
+
+
+@app.route('/getStudents', methods=['GET'])
+def get_students():
+    cursor.execute("SELECT * FROM student")
+    students = cursor.fetchall()
+    return jsonify(students)
+
+
+# Endpoint to retrieve all faculty members
+@app.route('/getFaculty', methods=['GET'])
+def get_faculty():
+    cursor.execute("SELECT * FROM faculty")
+    faculty = cursor.fetchall()
+    return jsonify(faculty)
+
+
+# Endpoint to retrieve attendance records
+@app.route('/getAttendance', methods=['GET'])
+def get_attendance():
+    cursor.execute("SELECT * FROM attendance")
+    attendance = cursor.fetchall()
+    return jsonify(attendance)
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    user = userType(username, password)
+    print(user)
+    if user:
+        return jsonify({'message': 'Login successful', 'usertype': user['userType'], 'userID': user['userId']}), 200
+    else:
+        return jsonify({'message': 'Invalid username or password'}), 401
+
+
+def userType(username, password):
+    cursor.execute("SELECT * FROM login WHERE userName = %s AND password = %s", (username, password))
+    user = cursor.fetchone()
+    if user:
+        return user
+    else:
+        return None
+
+
+@app.route('/getStudentDetails', methods=['GET'])
+def get_student_details():
+    userID = request.args.get('userID')
+    cursor.execute("SELECT * FROM student WHERE studentId = %s", (userID,))
+    result = cursor.fetchall()
+    student = result[0]
+    return jsonify(student)
+
+
+@app.route('/getStudentSubjects', methods=['GET'])
+def get_student_subjects():
+    userID = request.args.get('userID')
+    cursor.execute("select subject from student where studentId = %s", (userID,))
+    subjects = cursor.fetchall()
+    return jsonify(subjects)
+
+
+@app.route('/getStudentAttendance', methods=['GET'])
+def get_student_attendance():
+    userID = request.args.get('userID')
+    subject = request.args.get('subject')  # Retrieve subject from query parameter
+    cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s",
+                   (userID, subject))
+    attendance = cursor.fetchall()
+    return jsonify(attendance)
+
+
+@app.route('/getFacultyDetails', methods=['GET'])
+def get_faculty_details():
+    userID = request.args.get('userID')
+    cursor.execute("SELECT * FROM faculty WHERE facultyId = %s", (userID,))
+    student = cursor.fetchone()
+    return jsonify(student)
+
+
+@app.route('/getFacultySubjects', methods=['GET'])
+def get_faculty_subjects():
+    userID = request.args.get('userID')
+    cursor.execute("select subject from faculty where facultyId = %s", (userID,))
+    subjects = cursor.fetchall()
+    print(subjects)
+    return jsonify(subjects)
+
+
+# Function to calculate average attendance percentage for a student
+def calculate_average_attendance(student_id, subject):
+    cursor.execute("SELECT COUNT(*) as total_records FROM attendance WHERE studentId = %s and subject = %s",
+                   (student_id, subject))
+    total_records = cursor.fetchone()['total_records']
+
+    cursor.execute(
+        "SELECT COUNT(*) as present_count FROM attendance WHERE studentId = %s AND status = 'Present' and subject = %s",
+        (student_id, subject))
+    present_count = cursor.fetchone()['present_count']
+
+    if total_records == 0:
+        return 0
+    else:
+        return (present_count / total_records) * 100
+
+
+# Endpoint to get student's average attendance and compare with target percentage
+@app.route('/getStudentAverageAttendance', methods=['GET'])
+def get_student_average_attendance():
+    userID = request.args.get('userID')
+    subject = request.args.get('subject')
+    print(subject)
+    # Retrieve target percentage from faculty table
+    cursor.execute("SELECT * FROM faculty WHERE subject = %s", (subject, ))
+    faculty_details = cursor.fetchall()
+    print(faculty_details)
+    target_percentage = faculty_details[0]['attendencePercentageCriteria']
+    # Calculate average attendance percentage for the student
+    average_attendance = calculate_average_attendance(userID, subject)
+
+    # Compare average attendance with target percentage
+    meets_target = average_attendance >= target_percentage
+
+    return jsonify({
+        'average_attendance': average_attendance,
+        'target_percentage': target_percentage,
+        'meets_target': meets_target
+    })
+
+
+@app.route('/getFacultyAttendance', methods=['GET'])
+def get_faculty_attendance():
+    userID = request.args.get('userID')
+    cursor.execute("SELECT subject, status, date FROM attendance WHERE facultyId = %s", (userID,))
+    attendance = cursor.fetchall()
+    return jsonify(attendance)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

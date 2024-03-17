@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the user ID from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const userID = urlParams.get('userID');
 
-    // Function to fetch student details using the user ID
     function fetchStudentDetails() {
-        fetch('/getStudentDetails?userID=' + userID) // Replace with your actual endpoint to fetch student details
+        fetch('/getStudentDetails?userID=' + userID)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -14,21 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .then(student => {
-                // Populate the student details on the webpage
-                document.getElementById('studentName').innerText = student.name;
+                document.getElementById('studentName').innerText = student.studentName;
                 document.getElementById('studentEmail').innerText = student.email;
-                document.getElementById('studentID').innerText = student.studentID;
-                // Add more fields as needed
+                document.getElementById('studentID').innerText = student.studentId;
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle error, e.g., display error message to the user
             });
     }
 
-    // Function to fetch subject buttons for the student
     function fetchSubjectButtons() {
-        fetch('/getStudentSubjects?userID=' + userID) // Replace with your actual endpoint to fetch student subjects
+        fetch('/getStudentSubjects?userID=' + userID)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -37,25 +31,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .then(subjects => {
-                // Populate subject buttons on the webpage
                 const nav = document.getElementById('subjectNav');
                 subjects.forEach(subject => {
-                    console.log(subject)
                     const button = document.createElement('button');
                     button.textContent = subject.subject;
-                    // Add event listener to each button if needed
+                    button.addEventListener('click', function () {
+                        fetchAttendanceData(subject.subject);
+                    });
                     nav.appendChild(button);
                 });
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle error, e.g., display error message to the user
             });
     }
 
-    // Function to fetch attendance data for the student
-    function fetchAttendanceData() {
-        fetch('/getStudentAttendance?userID=' + userID) // Replace with your actual endpoint to fetch student attendance
+    function fetchAttendanceData(subject) {
+        document.getElementById('attendanceTable').style.display = 'none';
+        document.getElementById('attendanceBtnContainer').innerHTML = '';
+
+        fetch('/getStudentAttendance?userID=' + userID + '&subject=' + subject)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -64,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .then(attendance => {
-                // Populate attendance data on the webpage
                 const tableBody = document.querySelector('#attendanceTable tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
                 attendance.forEach(record => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
@@ -75,19 +70,40 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
                     tableBody.appendChild(tr);
                 });
+
+                setTimeout(fetchAverageAttendance, 1000, subject);
+                const showAttendanceBtn = document.createElement('button');
+                showAttendanceBtn.textContent = 'Show Attendance';
+                showAttendanceBtn.addEventListener('click', function () {
+                    document.getElementById('attendanceTable').style.display = 'block';
+                });
+                document.getElementById('attendanceBtnContainer').appendChild(showAttendanceBtn);
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle error, e.g., display error message to the user
             });
     }
 
-    // Call fetchStudentDetails function when the page loads
-    // fetchStudentDetails();
+    function fetchAverageAttendance(sub) {
+        fetch('/getStudentAverageAttendance?userID=' + userID + '&subject=' + sub)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch average attendance');
+                }
+            })
+            .then(averageAttendance => {
+                const averageAttendanceElement = document.getElementById('averageAttendance');
+                averageAttendanceElement.textContent = 'Average Attendance: ' + averageAttendance.average_attendance + '% Pass Criterion: '+ averageAttendance.criterion + '%';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-    // Call fetchSubjectButtons function when the page loads
+
     setTimeout(fetchSubjectButtons, 1000);
-
-    // Call fetchAttendanceData function when the page loads
-    fetchAttendanceData();
+    fetchStudentDetails(); // Fetch average attendance when the page loads
 });
+

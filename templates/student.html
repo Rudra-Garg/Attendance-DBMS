@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/CSS/student.css">
+    <title>Student Webpage</title>
+</head>
+<body>
+<header>
+    <h1>YOUR ATTENDANCE</h1>
+</header>
+
+<nav id="subjectNav">
+    <!-- Subject buttons will be dynamically inserted here -->
+</nav>
+
+<section class="Attendance-Section">
+    <h1>Student Details</h1>
+    <div>
+        <p><strong>Name:</strong> <span id="studentName"></span></p>
+        <p><strong>Email:</strong> <span id="studentEmail"></span></p>
+        <p><strong>Student ID:</strong> <span id="studentID"></span></p>
+    </div>
+    <h2>ATTENDANCE FOR SUBJECTS</h2>
+    <div id="attendanceBtnContainer"></div> <!-- Container for the "Show Attendance" button -->
+    <table id="attendanceTable" style="display: none;"> <!-- Set display to none initially -->
+        <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Attendance</th>
+            <th>Date</th> <!-- Assuming you want to display the date -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Attendance data will be dynamically inserted here -->
+        </tbody>
+    </table>
+    <div id="averageAttendance"></div>
+</section>
+
+<footer>
+    YEAR 2024-25
+</footer>
+
+<script src="/static/Scripts/student.js"></script>
+</body>
+</html>
