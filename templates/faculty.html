@@ -11,31 +11,40 @@
 <header>
     <h1>FACULTY PORTAL</h1>
 </header>
-<section class="faculty-details">
-    <h2>Faculty Details</h2>
-    <p><strong>Name:</strong> <span id="facultyName"></span></p>
+<button  onclick="myFunction()" class="dropbtn" id="facultyName"></button>
+<div id="myDropdown" class="dropdown-content">
     <p><strong>Email:</strong> <span id="facultyEmail"></span></p>
     <p><strong>ID:</strong> <span id="facultyID"></span></p>
-    <!-- Add more fields as needed -->
-</section>
+  </div>
+
 <nav id="subjectNav">
+   
     <!-- Subject buttons will be dynamically inserted here -->
 </nav>
-
+<!-- <section style="position:absolute;" class="faculty-details">
+    <h2>Faculty Details</h2> -->
+    <!-- <p><strong>Name:</strong> <span id="facultyName"></span></p> -->
+    <!-- <p><strong>Email:</strong> <span id="facultyEmail"></span></p>
+    <p><strong>ID:</strong> <span id="facultyID"></span></p> -->
+    <!-- Add more fields as needed -->
+<!-- </section>  -->
 <button class="nextBtn">Next</button>
 <button class="backBtn">Back</button>
 <section class="attendance-section">
     <div class="attendance-box">
-        <h2>MARK ATTENDANCE</h2>
+        <h2 >MARK ATTENDANCE</h2>
         <div class="attendanceMark">
-            <p><strong>Name:</strong> <span id="studentName"></span></p>
-            <p><strong>ID:</strong> <span id="rollNumber"></span></p>
-            <label for="date">Date:</label>
-            <input id="date" type="date" value="<?= date('yyyy-MM-dd') ?>" required>
-            <label for="present">Present</label>
-            <input id="present" type="radio" name="stat">
-            <label for="absent">Absent</label>
+            <p class="details" style="display: inline; text-align: left;"><strong>Name:</strong> <span id="studentName"></span></p>
+            <p  style="display: inline; text-align: left;" class="details"style="display: inline;"><strong>ID:</strong> <span id="rollNumber"></span></p>
+            <br>
+            <label class="datestyle" for="date" style="font-weight:bolder;margin-left: 0px ; ">Date:</label>
+            <input class="datestyle" id="date" type="date" value="<?= date('yyyy-MM-dd') ?>" required>
+            <br>
+            <label style="margin-left: 0px;margin-right: 0px; padding-right: 5px;" for="present">Present</label>
+            <input style="padding-right: 5px;" id="present" type="radio" name="stat">
+            <label style=" margin-right: 0px; padding-right: 5px;" for="absent">Absent</label>
             <input id="absent" type="radio" name="stat">
+            <br>
             <button class="submit">Mark</button>
         </div>
     </div>
@@ -46,5 +55,26 @@
 </footer>
 
 <script src="/static/Scripts/faculty.js"></script>
+<script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
 </body>
 </html>
