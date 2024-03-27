@@ -7,7 +7,7 @@ student_bp = Blueprint('student', __name__)
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="0000",
+    password="saumya@17kala",
     database="attendance_system"
 )
 
@@ -67,4 +67,4 @@ def get_student_average_attendance():
         average_attendance = 0
     cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
     criterion = cursor.fetchone()['attendencePercentageCriteria']
-    return jsonify({'average_attendance': average_attendance, 'criterion': criterion})
+    return jsonify({'average_attendance': round(average_attendance,2), 'criterion': criterion})
