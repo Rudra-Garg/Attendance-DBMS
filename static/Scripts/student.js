@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showAttendanceBtn.textContent = 'Show Attendance';
                 showAttendanceBtn.addEventListener('click', function () {
                     document.getElementById('attendanceTable').style.display = 'block';
+                    document.getElementById('averageAttendance').style.display = 'block';
                 });
                 document.getElementById('attendanceBtnContainer').appendChild(showAttendanceBtn);
             })
@@ -95,8 +96,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .then(averageAttendance => {
-                const averageAttendanceElement = document.getElementById('averageAttendance');
-                averageAttendanceElement.textContent = 'Average Attendance: ' + averageAttendance.average_attendance + '% Pass Criterion: '+ averageAttendance.criterion + '%';
+                const Percentage = document.getElementById('percent');
+                Percentage.textContent =averageAttendance.average_attendance+"% ";
+                const criteria = document.getElementById('criteria');
+                criteria.textContent =averageAttendance.criterion+'%';
             })
             .catch(error => {
                 console.error('Error:', error);
