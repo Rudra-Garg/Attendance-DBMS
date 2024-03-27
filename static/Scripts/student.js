@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 attendance.forEach(record => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td>${record.subject}</td>
-                        <td>${record.status}</td>
                         <td>${record.date}</td>
+                        <td>${record.status}</td>
+                      
                     `;
                     tableBody.appendChild(tr);
                 });
