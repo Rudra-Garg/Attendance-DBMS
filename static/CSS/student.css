@@ -123,10 +123,10 @@ section.Attendance-Section {
 }
 
 #attendanceTable {
-    width: 80%;
     margin-top: 20px;
     border-collapse: collapse;
-}
+  }
+
 
 #attendanceTable th,
 #attendanceTable td {
