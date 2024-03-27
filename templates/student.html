@@ -20,24 +20,26 @@
 <section class="Attendance-Section">
     <h1>Student Details</h1>
     <div>
+        <p><strong>STUDENT ID:</strong> <span id="studentID"></span></p>
         <p><strong>NAME:</strong> <span id="studentName"></span></p>
         <p><strong>EMAIL:</strong> <span id="studentEmail"></span></p>
-        <p><strong>STUDENT ID:</strong> <span id="studentID"></span></p>
+      
     </div>
     <div id="attendanceBtnContainer"></div> <!-- Container for the "Show Attendance" button -->
+    <div id="averageAttendance"></div>
     <table id="attendanceTable" style="display: none;"> <!-- Set display to none initially -->
         <thead>
         <tr>
-            <th>SUBJECT</th>
+            <th>DATE</th>
             <th>ATTENDANCE</th>
-            <th>DATE</th> <!-- Assuming you want to display the date -->
+            <!-- Assuming you want to display the date -->
         </tr>
         </thead>
         <tbody>
         <!-- Attendance data will be dynamically inserted here -->
         </tbody>
     </table>
-    <div id="averageAttendance"></div>
+    
 </section>
 
 <footer>
