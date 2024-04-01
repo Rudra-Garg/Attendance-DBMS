@@ -97,14 +97,32 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(averageAttendance => {
                 const Percentage = document.getElementById('percent');
-                Percentage.textContent =averageAttendance.average_attendance+"% ";
+                Percentage.textContent = averageAttendance.average_attendance + "% ";
+                
                 const criteria = document.getElementById('criteria');
-                criteria.textContent =averageAttendance.criterion+'%';
+                criteria.textContent = averageAttendance.criterion + '%';
+        
+                const progressBar = document.getElementById('progressBar');
+                const bar = progressBar.querySelector('.bar');
+                const percentage = averageAttendance.average_attendance;
+                bar.style.width = percentage + '%';
+        
+                bar.classList.remove('green', 'red', 'blue');
+        
+                if (percentage >= averageAttendance.criterion) {
+                    bar.classList.add('green'); 
+                    document.querySelector("meta[name=theme-color]").setAttribute("content", "#4CAF50"); 
+                } else {
+                    bar.classList.add('red');
+                    document.querySelector("meta[name=theme-color]").setAttribute("content", "#FF5722"); 
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
+    
+    
 
 
     setTimeout(fetchSubjectButtons, 1000);
