@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Populate the faculty details on the webpage
                 document.getElementById('facultyName').innerText = faculty.facultyName;
                 document.getElementById('facultyEmail').innerText = faculty.email;
-                document.getElementById('facultyID').innerText = faculty.facultyId;
+                document.getElementById('facultyID').innerText = "ID: "+faculty.facultyId;
                 // Add more fields as needed
             })
             .catch(error => {
@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
+
+
     document.querySelector('.nextBtn').addEventListener('click', function () {
         userIDIndex = (userIDIndex + 1) % studentUserIDs.length; // Increment the index
         updateStudentDetails(); // Update student details
@@ -150,3 +153,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+document.querySelector('.mark').addEventListener('click', function (){
+   
+      document.getElementsByClassName("attendance-section").style.display = "none";
+      document.getElementsByClassName("nextBtn").style.display = "visible";
+      document.getElementsByClassName("backBtn").style.display = "visible";
+
+    
+    
+    
+  });
