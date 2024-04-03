@@ -4,18 +4,78 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/927c674a72.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/CSS/facultySidebar.css">
     <link rel="stylesheet" href="/static/CSS/faculty.css">
+   
     <title>Faculty Webpage</title>
 </head>
 <body>
 <header>
     <h1>FACULTY PORTAL</h1>
 </header>
-<button  onclick="myFunction()" class="dropbtn" id="facultyName"></button>
+<div style="position: absolute; top:5%"  class="wrapper">
+  <!--Top menu -->
+  <div class="section">
+    <div class="top_navbar">
+        <div class="hamburger">
+            <a href="#">
+                <i class="fas fa-bars"></i>
+            </a>
+        </div>
+    </div>
+  <div class="sidebar"> 
+     <!--profile image & text-->
+     <div class="profile">
+      <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
+      <h3 id="facultyName">NAME</h3>
+      <p id="facultyEmail">Faculty</p>
+      <p id="facultyID"></p>
+
+  </div>
+      <!--menu item-->
+      <ul>
+       
+        <li>
+          <a href="javascript:;" onclick="markAttendance();" class="active mark">
+              <span class="icon"><i class="fas fa-home"></i></span>
+              <span class="item">Mark attendance</span>
+          </a>
+      </li>
+      <li>
+          <a href="javascript:;" onclick="leaveApplication();" >
+              <span class="icon"><i class="fas fa-desktop"></i></span>
+              <span class="item">Leave application</span>
+          </a>
+      </li>
+      <li>
+          <a href="#">
+              <span class="icon"><i class="fas fa-user-friends"></i></span>
+              <span class="item">Defaulter list</span>
+          </a>
+      </li>
+      <li>
+          <a href="#">
+              <span class="icon"><i class="fa fa-sign-out"></i></span>
+              <span class="item">Log out</span>
+          </a>
+      </li>
+     
+    </ul>
+</div>
+  </div>
+<script>
+  var hamburger = document.querySelector(".hamburger");
+  hamburger.addEventListener("click", function(){
+      document.querySelector("body").classList.toggle("active");
+  })
+</script>
+</div>
+<!-- <button  onclick="myFunction()" class="dropbtn" id="facultyName"></button>
 <div id="myDropdown" class="dropdown-content">
     <p><strong>Email:</strong> <span id="facultyEmail"></span></p>
     <p><strong>ID:</strong> <span id="facultyID"></span></p>
-  </div>
+  </div> -->
 
 <nav id="subjectNav">
    
@@ -28,9 +88,9 @@
     <p><strong>ID:</strong> <span id="facultyID"></span></p> -->
     <!-- Add more fields as needed -->
 <!-- </section>  -->
-<button class="nextBtn">Next</button>
-<button class="backBtn">Back</button>
-<section class="attendance-section">
+<button class="nextBtn btn" style="display: block;"> Next</button>
+<button class="backBtn btn" style="display: block;">Back</button>
+<section class="attendance-section" style="display: block;">
     <div class="attendance-box">
         <h2 >MARK ATTENDANCE</h2>
         <div class="attendanceMark">
@@ -50,6 +110,9 @@
     </div>
 </section>
 
+<section class="leave-section" style="display: none;">
+  <h1>leave section</h1>
+   </section>
 <footer>
     YEAR 2024-25
 </footer>
@@ -61,20 +124,33 @@
     function myFunction() {
       document.getElementById("myDropdown").classList.toggle("show");
     }
-    
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
+   
+    function markAttendance(){
+      let leaveSection= document.querySelector(".leave-section");
+        if(leaveSection.style.display === "block"){
+            leaveSection.style.display = "none";
         }
-      }
+      let attendanceSection= document.querySelector(".attendance-section");
+        if(attendanceSection.style.display === "none"){
+            document.querySelector(".nextBtn").style.display = "block";
+            document.querySelector(".backBtn").style.display = "block";
+            attendanceSection.style.display = "block";
+    }}
+    function leaveApplication()
+    {
+      let attendanceSection= document.querySelector(".attendance-section");
+        if(attendanceSection.style.display === "block"){
+            attendanceSection.style.display = "none";
+            document.querySelector(".nextBtn").style.display = "none";
+            document.querySelector(".backBtn").style.display = "none";
     }
+        let leaveSection= document.querySelector(".leave-section");
+        if(leaveSection.style.display === "none"){
+            leaveSection.style.display = "block";
+        }
+    }
+    // Close the dropdown if the user clicks outside of it
+    
     </script>
 </body>
 </html>
