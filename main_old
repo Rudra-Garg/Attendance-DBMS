@@ -1,6 +1,6 @@
 import mysql.connector
 from flask import *
-
+#ertyui
 app = Flask(__name__)
 
 db = mysql.connector.connect(
