@@ -1,17 +1,8 @@
-import mysql.connector
 from flask import Blueprint, request, jsonify, render_template
 
+from app.connection import *
+
 student_bp = Blueprint('student', __name__)
-
-# Connect to MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="saumya@17kala",
-    database="attendance_system"
-)
-
-cursor = db.cursor(dictionary=True)
 
 
 # Routes related to student functionality
@@ -42,7 +33,8 @@ def get_student_subjects():
 @student_bp.route('/getStudentAttendance', methods=['GET'])
 def get_student_attendance():
     userID = request.args.get('userID')
-    subject = request.args.get('subject')  # Retrieve subject from query parameter
+    subject = request.args.get('subject')
+    db.reconnect()  # Retrieve subject from query parameter
     cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s",
                    (userID, subject))
     attendance = cursor.fetchall()
@@ -67,4 +59,4 @@ def get_student_average_attendance():
         average_attendance = 0
     cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
     criterion = cursor.fetchone()['attendencePercentageCriteria']
-    return jsonify({'average_attendance': round(average_attendance,2), 'criterion': criterion})
+    return jsonify({'average_attendance': round(average_attendance, 2), 'criterion': criterion})

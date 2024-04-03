@@ -1,17 +1,8 @@
-import mysql.connector
 from flask import Blueprint, request, jsonify, render_template
 
+from app.connection import *
+
 faculty_bp = Blueprint('faculty', __name__)
-
-# Connect to MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="0000",
-    database="attendance_system"
-)
-
-cursor = db.cursor(dictionary=True)
 
 
 # Routes related to faculty functionality
@@ -55,7 +46,6 @@ def get_student_user_ids():
     return jsonify(user_ids)
 
 
-
 @faculty_bp.route('/markAttendance', methods=['POST'])
 def mark_attendance():
     data = request.json
@@ -65,8 +55,39 @@ def mark_attendance():
     date = data['date']
     status = data['status']
     print(student_id, faculty_id, subject, date, status)
-    cursor.execute("INSERT INTO attendance VALUES (%s, %s, %s, %s, %s)",
-                   (subject, student_id, faculty_id, date, status))
+    cursor.execuuserIDte("INSERT INTO attendance VALUES (%s, %s, %s, %s, %s)",
+                         (subject, student_id, faculty_id, date, status))
     db.commit()
-
     return jsonify({'message': 'Attendance marked successfully'}), 200
+
+
+@faculty_bp.route('/getDefaulters', methods=['GET'])
+def get_defaulters():
+    subject = request.args.get('subject')
+    attendance = {
+        'ids': [],
+        'names': [],
+        'attendances': []
+    }
+    cursor.execute("SELECT studentId FROM student WHERE subject = %s", (subject,))
+    user_ids = [result['studentId'] for result in cursor.fetchall()]
+    for id in user_ids:
+        cursor.execute(
+            "SELECT COUNT(*) AS present_count FROM attendance WHERE studentId = %s AND subject = %s AND status = 'Present'",
+            (id, subject))
+        present_count = cursor.fetchone()['present_count']
+        cursor.execute("SELECT COUNT(*) AS total_count FROM attendance WHERE studentId = %s AND subject = %s",
+                       (id, subject))
+        total_count = cursor.fetchone()['total_count']
+        if total_count != 0:
+            average_attendance = (present_count / total_count) * 100
+        else:
+            average_attendance = 0
+        cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
+        criterion = cursor.fetchall()['attendencePercentageCriteria'][0]
+
+        if average_attendance < criterion:
+            attendance['ids'].append(id)
+            attendance['names'].append(cursor.execute("SELECT name FROM student WHERE studentId = %s", (id,))[0])
+            attendance['attendances'].append(average_attendance)
+    return jsonify(attendance)

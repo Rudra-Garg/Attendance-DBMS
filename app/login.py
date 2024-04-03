@@ -1,20 +1,11 @@
-import mysql.connector
 from flask import Blueprint, request, jsonify
+
+from app.connection import *
 
 login_bp = Blueprint('login', __name__)
 
-# Connect to MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="0000",
-    database="attendance_system"
-)
 
-cursor = db.cursor(dictionary=True)
-
-
-# Routes related to login functionality
+# Routes related to log in functionality
 @login_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -36,4 +27,4 @@ def user_type(username, password):
     else:
         return None
 
-# Add more routes related to login functionality as needed
+# Add more routes related to log in functionality as needed

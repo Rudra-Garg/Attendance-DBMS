@@ -111,7 +111,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.querySelector('.submit').addEventListener('click', function () {
         const studentID = document.getElementById('rollNumber').innerText;
+
+        //check if date is selected
         const date = document.getElementById('date').value;
+        if (!date) {
+            alert('Please select a date');
+            return;
+        }
+
+        // Get the selected attendance status from the radio buttons
         let status;
 
         // Check which radio button is selected
@@ -121,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             status = 'Absent';
         } else {
             // Handle the case where neither radio button is selected
-            console.error('Please select attendance status');
+            alert('Please select attendance status');
             return; // Stop execution if attendance status is not selected
         }
 

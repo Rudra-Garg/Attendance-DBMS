@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 attendance.forEach(record => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td>${record.date}</td>
+                           <!--remove the time part-->
+                        <td>${record.date.substring(0, 16)}</td>  
                         <td>${record.status}</td>
                       
                     `;
