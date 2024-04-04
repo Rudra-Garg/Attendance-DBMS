@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Retrieve the user ID from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const userID = urlParams.get('userID');
-
+    // document.querySelector("wrapper").style.display="block";
     function fetchFacultyDetails() {
         fetch('/getFacultyDetails?userID=' + userID) // Replace with your actual endpoint to fetch faculty details
             .then(response => {
@@ -166,6 +166,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function markAttendance() {
+        document.querySelector(".mark").classList.add("active");
+        document.querySelector(".leave").classList.remove("active");
+        document.querySelector(".defaulter_button").classList.remove("active")
+        document.querySelector(".logout").classList.remove("active");
         let leaveSection = document.querySelector(".leave-section");
         if (leaveSection.style.display === "block") {
             leaveSection.style.display = "none";
@@ -183,6 +187,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function leaveApplication() {
+        document.querySelector(".mark").classList.remove("active");
+        document.querySelector(".leave").classList.add("active");
+        document.querySelector(".defaulter_button").classList.remove("active")
+        document.querySelector(".logout").classList.remove("active");
         let attendanceSection = document.querySelector(".attendance-section");
         if (attendanceSection.style.display === "block") {
             attendanceSection.style.display = "none";
@@ -198,9 +206,14 @@ document.addEventListener('DOMContentLoaded', function () {
             defaulter.style.display = "none";
         }
     }
+  
 
     // Close the dropdown if the user clicks outside of it
     function defaulters(subject) {
+        document.querySelector(".mark").classList.remove("active");
+        document.querySelector(".leave").classList.remove("active");
+        document.querySelector(".defaulter_button").classList.add("active")
+        document.querySelector(".logout").classList.remove("active");
         let attendanceSection = document.querySelector(".attendance-section");
         if (attendanceSection.style.display === "block") {
             attendanceSection.style.display = "none";
@@ -215,6 +228,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (defaulter.style.display === "none") {
             defaulter.style.display = "block";
         }
+    }
+
+    function logout()
+    {
+        document.querySelector(".mark").classList.remove("active");
+        document.querySelector(".leave").classList.remove("active");
+        document.querySelector(".defaulter_button").classList.remove("active")
+        document.querySelector(".logout").classList.add("active");
     }
 
     function fetchDefaulters(subject) {
@@ -248,7 +269,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             );
     }
-
+     
+    
     document.querySelector('.mark').addEventListener('click', function () {
         markAttendance();
     });
@@ -257,6 +279,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.querySelector('.defaulter_button').addEventListener('click', function () {
         defaulters();
+    });
+    document.querySelector('.logout').addEventListener('click', function () {
+        logout();
     });
 });
 
