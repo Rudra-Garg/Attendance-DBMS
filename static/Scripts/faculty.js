@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function fetchDefaulters(subject) {
+        document.querySelector(".selectSub").innerText="";
         fetch('/getDefaulters?subject=' + subject)
             .then(response => {
                 if (response.ok) {

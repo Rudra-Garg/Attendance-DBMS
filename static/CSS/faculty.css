@@ -318,3 +318,12 @@ th{
 td, th {
   word-wrap: break-word; /* Allows long words to break and wrap onto the next line */
 }
+
+.selectSub{
+  display: block;
+  margin-top: 20%;
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  font-weight: bolder;
+}
