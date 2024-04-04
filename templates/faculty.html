@@ -7,69 +7,70 @@
     <script src="https://kit.fontawesome.com/927c674a72.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/CSS/facultySidebar.css">
     <link rel="stylesheet" href="/static/CSS/faculty.css">
-   
+
     <title>Faculty Webpage</title>
 </head>
 <body>
 <header>
     <h1>FACULTY PORTAL</h1>
 </header>
-<div style="position: absolute; top:5%"  class="wrapper">
-  <!--Top menu -->
-  <div class="section">
-    <div class="top_navbar">
-        <div class="hamburger">
-            <a href="#">
-                <i class="fas fa-bars"></i>
-            </a>
+<div style="position: absolute; top:5%" class="wrapper">
+    <!--Top menu -->
+    <div class="section">
+        <div class="top_navbar">
+            <div class="hamburger">
+                <a href="#">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar">
+            <!--profile image & text-->
+            <div class="profile">
+                <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img
+                        src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
+                <h3 id="facultyName">NAME</h3>
+                <p id="facultyEmail">Faculty</p>
+                <p id="facultyID"></p>
+
+            </div>
+            <!--menu item-->
+            <ul>
+
+                <li>
+                    <a class="active mark ">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Mark attendance</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="leave">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">Leave application</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="defaulter_button">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Defaulter list</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="logout">
+                        <span class="icon"><i class="fa fa-sign-out"></i></span>
+                        <span class="item">Log out</span>
+                    </a>
+                </li>
+
+            </ul>
         </div>
     </div>
-  <div class="sidebar"> 
-     <!--profile image & text-->
-     <div class="profile">
-      <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
-      <h3 id="facultyName">NAME</h3>
-      <p id="facultyEmail">Faculty</p>
-      <p id="facultyID"></p>
-
-  </div>
-      <!--menu item-->
-      <ul>
-       
-        <li>
-          <a href="javascript:;" onclick="markAttendance();" class="active mark">
-              <span class="icon"><i class="fas fa-home"></i></span>
-              <span class="item">Mark attendance</span>
-          </a>
-      </li>
-      <li>
-          <a href="javascript:;" onclick="leaveApplication();" >
-              <span class="icon"><i class="fas fa-desktop"></i></span>
-              <span class="item">Leave application</span>
-          </a>
-      </li>
-      <li>
-          <a href="#">
-              <span class="icon"><i class="fas fa-user-friends"></i></span>
-              <span class="item">Defaulter list</span>
-          </a>
-      </li>
-      <li>
-          <a href="#">
-              <span class="icon"><i class="fa fa-sign-out"></i></span>
-              <span class="item">Log out</span>
-          </a>
-      </li>
-     
-    </ul>
-</div>
-  </div>
-<script>
-  var hamburger = document.querySelector(".hamburger");
-  hamburger.addEventListener("click", function(){
-      document.querySelector("body").classList.toggle("active");
-  })
-</script>
+    <script>
+        var hamburger = document.querySelector(".hamburger");
+        hamburger.addEventListener("click", function () {
+            document.querySelector("body").classList.toggle("active");
+        })
+    </script>
 </div>
 <!-- <button  onclick="myFunction()" class="dropbtn" id="facultyName"></button>
 <div id="myDropdown" class="dropdown-content">
@@ -78,24 +79,26 @@
   </div> -->
 
 <nav id="subjectNav">
-   
+
     <!-- Subject buttons will be dynamically inserted here -->
 </nav>
 <!-- <section style="position:absolute;" class="faculty-details">
     <h2>Faculty Details</h2> -->
-    <!-- <p><strong>Name:</strong> <span id="facultyName"></span></p> -->
-    <!-- <p><strong>Email:</strong> <span id="facultyEmail"></span></p>
-    <p><strong>ID:</strong> <span id="facultyID"></span></p> -->
-    <!-- Add more fields as needed -->
+<!-- <p><strong>Name:</strong> <span id="facultyName"></span></p> -->
+<!-- <p><strong>Email:</strong> <span id="facultyEmail"></span></p>
+<p><strong>ID:</strong> <span id="facultyID"></span></p> -->
+<!-- Add more fields as needed -->
 <!-- </section>  -->
 <button class="nextBtn btn" style="display: block;"> Next</button>
 <button class="backBtn btn" style="display: block;">Back</button>
 <section class="attendance-section" style="display: block;">
     <div class="attendance-box">
-        <h2 >MARK ATTENDANCE</h2>
+        <h2>MARK ATTENDANCE</h2>
         <div class="attendanceMark">
-            <p class="details" style="display: inline; text-align: left;"><strong>Name:</strong> <span id="studentName"></span></p>
-            <p  style="display: inline; text-align: left;" class="details"style="display: inline;"><strong>ID:</strong> <span id="rollNumber"></span></p>
+            <p class="details" style="display: inline; text-align: left;"><strong>Name:</strong> <span
+                    id="studentName"></span></p>
+            <p style="display: inline; text-align: left;" class="details" style="display: inline;"><strong>ID:</strong>
+                <span id="rollNumber"></span></p>
             <br>
             <label class="datestyle" for="date" style="font-weight:bolder;margin-left: 0px ; ">Date:</label>
             <input class="datestyle" id="date" type="date" value="<?= date('yyyy-MM-dd') ?>" required>
@@ -111,46 +114,28 @@
 </section>
 
 <section class="leave-section" style="display: none;">
-  <h1>leave section</h1>
-   </section>
+    <h1>leave section</h1>
+</section>
+<section class="defaulters" style="display: none;">
+    <table id="defaulters_table" style="color: #EDF7FE"> <!-- Set display to none initially -->
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Average attendance</th>
+            <!-- Assuming you want to display the date -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Attendance data will be dynamically inserted here -->
+        </tbody>
+    </table>
+</section>
 <footer>
     YEAR 2024-25
 </footer>
 
 <script src="/static/Scripts/faculty.js"></script>
-<script>
-    /* When the user clicks on the button, 
-    toggle between hiding and showing the dropdown content */
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
-   
-    function markAttendance(){
-      let leaveSection= document.querySelector(".leave-section");
-        if(leaveSection.style.display === "block"){
-            leaveSection.style.display = "none";
-        }
-      let attendanceSection= document.querySelector(".attendance-section");
-        if(attendanceSection.style.display === "none"){
-            document.querySelector(".nextBtn").style.display = "block";
-            document.querySelector(".backBtn").style.display = "block";
-            attendanceSection.style.display = "block";
-    }}
-    function leaveApplication()
-    {
-      let attendanceSection= document.querySelector(".attendance-section");
-        if(attendanceSection.style.display === "block"){
-            attendanceSection.style.display = "none";
-            document.querySelector(".nextBtn").style.display = "none";
-            document.querySelector(".backBtn").style.display = "none";
-    }
-        let leaveSection= document.querySelector(".leave-section");
-        if(leaveSection.style.display === "none"){
-            leaveSection.style.display = "block";
-        }
-    }
-    // Close the dropdown if the user clicks outside of it
-    
-    </script>
+
 </body>
 </html>

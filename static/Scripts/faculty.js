@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Populate the faculty details on the webpage
                 document.getElementById('facultyName').innerText = faculty.facultyName;
                 document.getElementById('facultyEmail').innerText = faculty.email;
-                document.getElementById('facultyID').innerText = "ID: "+faculty.facultyId;
+                document.getElementById('facultyID').innerText = "ID: " + faculty.facultyId;
                 // Add more fields as needed
             })
             .catch(error => {
@@ -42,7 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     button.textContent = subject.subject;
                     button.addEventListener('click', function () {
                         selected_subject = subject.subject;
-                        fetchStudentUserIDs(subject.subject);
+                        let attendanceSection = document.querySelector(".attendance-section");
+                        if (attendanceSection.style.display === "block") {
+                            fetchStudentUserIDs(subject.subject);
+                        }
+                        let defaulter = document.querySelector(".defaulters");
+                        if (defaulter.style.display === "block") {
+                            fetchDefaulters(subject.subject);
+                        }
                     });
                     nav.appendChild(button);
                 });
@@ -95,8 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     }
-
-
 
 
     document.querySelector('.nextBtn').addEventListener('click', function () {
@@ -160,15 +165,106 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
+    function markAttendance() {
+        let leaveSection = document.querySelector(".leave-section");
+        if (leaveSection.style.display === "block") {
+            leaveSection.style.display = "none";
+        }
+        let attendanceSection = document.querySelector(".attendance-section");
+        if (attendanceSection.style.display === "none") {
+            document.querySelector(".nextBtn").style.display = "block";
+            document.querySelector(".backBtn").style.display = "block";
+            attendanceSection.style.display = "block";
+        }
+        let defaulter = document.querySelector(".defaulters");
+        if (defaulter.style.display === "block") {
+            defaulter.style.display = "none";
+        }
+    }
+
+    function leaveApplication() {
+        let attendanceSection = document.querySelector(".attendance-section");
+        if (attendanceSection.style.display === "block") {
+            attendanceSection.style.display = "none";
+            document.querySelector(".nextBtn").style.display = "none";
+            document.querySelector(".backBtn").style.display = "none";
+        }
+        let leaveSection = document.querySelector(".leave-section");
+        if (leaveSection.style.display === "none") {
+            leaveSection.style.display = "block";
+        }
+        let defaulter = document.querySelector(".defaulters");
+        if (defaulter.style.display === "block") {
+            defaulter.style.display = "none";
+        }
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    function defaulters(subject) {
+        let attendanceSection = document.querySelector(".attendance-section");
+        if (attendanceSection.style.display === "block") {
+            attendanceSection.style.display = "none";
+            document.querySelector(".nextBtn").style.display = "none";
+            document.querySelector(".backBtn").style.display = "none";
+        }
+        let leaveSection = document.querySelector(".leave-section");
+        if (leaveSection.style.display === "block") {
+            leaveSection.style.display = "none";
+        }
+        let defaulter = document.querySelector(".defaulters");
+        if (defaulter.style.display === "none") {
+            defaulter.style.display = "block";
+        }
+    }
+
+    function fetchDefaulters(subject) {
+        fetch('/getDefaulters?subject=' + subject)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch attendance data');
+                }
+            })
+            .then(attendance => {
+                console.log(attendance)
+                const tableBody = document.querySelector('#defaulters_table tbody');
+                tableBody.innerHTML = '';
+                attendance.forEach(record => {
+                    console.log(record);
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                           <!--remove the time part-->
+                        <td>${record[0]}</td>  
+                        <td>${record[1]}</td>
+                        <td>${record[2]}</td>
+                        
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                    console.error('Error:', error);
+                }
+            );
+    }
+
+    document.querySelector('.mark').addEventListener('click', function () {
+        markAttendance();
+    });
+    document.querySelector('.leave').addEventListener('click', function () {
+        leaveApplication();
+    });
+    document.querySelector('.defaulter_button').addEventListener('click', function () {
+        defaulters();
+    });
 });
 
-document.querySelector('.mark').addEventListener('click', function (){
-   
-      document.getElementsByClassName("attendance-section").style.display = "none";
-      document.getElementsByClassName("nextBtn").style.display = "visible";
-      document.getElementsByClassName("backBtn").style.display = "visible";
+document.querySelector('.mark').addEventListener('click', function () {
 
-    
-    
-    
-  });
+    document.getElementsByClassName("attendance-section").style.display = "none";
+    document.getElementsByClassName("nextBtn").style.display = "visible";
+    document.getElementsByClassName("backBtn").style.display = "visible";
+
+
+});

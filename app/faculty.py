@@ -64,13 +64,12 @@ def mark_attendance():
 @faculty_bp.route('/getDefaulters', methods=['GET'])
 def get_defaulters():
     subject = request.args.get('subject')
-    attendance = {
-        'ids': [],
-        'names': [],
-        'attendances': []
-    }
+    attendance = []
     cursor.execute("SELECT studentId FROM student WHERE subject = %s", (subject,))
     user_ids = [result['studentId'] for result in cursor.fetchall()]
+    cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
+    criterion = cursor.fetchone()['attendencePercentageCriteria']
+    print(criterion, user_ids)
     for id in user_ids:
         cursor.execute(
             "SELECT COUNT(*) AS present_count FROM attendance WHERE studentId = %s AND subject = %s AND status = 'Present'",
@@ -83,11 +82,13 @@ def get_defaulters():
             average_attendance = (present_count / total_count) * 100
         else:
             average_attendance = 0
-        cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
-        criterion = cursor.fetchall()['attendencePercentageCriteria'][0]
-
+        print(average_attendance, criterion)
         if average_attendance < criterion:
-            attendance['ids'].append(id)
-            attendance['names'].append(cursor.execute("SELECT name FROM student WHERE studentId = %s", (id,))[0])
-            attendance['attendances'].append(average_attendance)
+            temp = [id]
+            cursor.execute("SELECT studentName FROM student WHERE studentId = %s", (id,))
+            temp.append(cursor.fetchall()[0]['studentName'])
+            temp.append(average_attendance)
+            attendance.append(temp)
+
+    print(attendance)
     return jsonify(attendance)
