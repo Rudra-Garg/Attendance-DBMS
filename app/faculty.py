@@ -87,6 +87,7 @@ def get_defaulters():
             temp = [id]
             cursor.execute("SELECT studentName FROM student WHERE studentId = %s", (id,))
             temp.append(cursor.fetchall()[0]['studentName'])
+            average_attendance=round(average_attendance,2)
             temp.append(average_attendance)
             attendance.append(temp)
 
