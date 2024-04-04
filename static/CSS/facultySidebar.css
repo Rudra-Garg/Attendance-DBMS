@@ -54,6 +54,9 @@ body{
   color: rgb(241, 237, 237);
   font-size: 16px;
   position: relative;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
 }
 
 .wrapper .sidebar ul li a .icon{
