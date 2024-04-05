@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#2196F3"> 
-        <link rel="stylesheet" href="/static/CSS/student.css">
-        
-  
-    
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2196F3">
+    <link rel="stylesheet" href="/static/CSS/student.css">
+
+
     <title>Student Webpage</title>
 </head>
 <body>
 <header>
     <h1>YOUR ATTENDANCE</h1>
 </header>
+<div style="position: absolute; top:5%" class="wrapper">
+    <!--Top menu -->
+    <div class="section">
+        <div class="top_navbar">
+            <div class="hamburger">
+                <a href="#">
+                    <i class="fas fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar">
+            <!--profile image & text-->
+            <div class="profile">
+                <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img
+                        src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
+                <h3 id="studentName">NAME</h3>
+                <p id="studentEmail">Faculty</p>
+                <p id="studentID"></p>
 
+            </div>
+            <!--menu item-->
+            <ul>
+
+                <li>
+                    <a class="active mark">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Attendance Records</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="leave">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">Leave application</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="logout" href="/">
+                        <span class="icon"><i class="fa fa-sign-out"></i></span>
+                        <span class="item">Log out</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <script>
+        var hamburger = document.querySelector(".hamburger");
+        hamburger.addEventListener("click", function () {
+            document.querySelector("body").classList.toggle("active");
+        })
+    </script>
+</div>
 <nav id="subjectNav">
     <!-- Subject buttons will be dynamically inserted here -->
 </nav>
 
-<section class="Attendance-Section">
-    <h1>Student Details</h1>
+<section class="Attendance-Section" style="display: block;">
+    <!--<h1>Student Details</h1>
     <div>
         <p><strong>STUDENT ID:</strong> <span id="studentID"></span></p>
         <p><strong>NAME:</strong> <span id="studentName"></span></p>
         <p><strong>EMAIL:</strong> <span id="studentEmail"></span></p>
-    </div>
+    </div>-->
     <div id="attendanceBtnContainer"></div> <!-- Container for the "Show Attendance" button -->
     <div id="averageAttendance" style="display:none;">
         <p>ATTENDANCE PERCENTAGE: <strong id="percent">40%</strong></p>
         <div id="progressBar">
             <div class="bar" id="attendanceBar"></div>
         </div>
-    <div> PASS CRITERIA: <strong id ="criteria">0%</strong></p></div>
+        <div> PASS CRITERIA: <strong id="criteria">0%</strong></p></div>
     </div>
-   
+
     <table id="attendanceTable" style="display: none;"> <!-- Set display to none initially -->
         <thead>
         <tr>
@@ -49,6 +99,51 @@
         <!-- Attendance data will be dynamically inserted here -->
         </tbody>
     </table>
+</section>
+
+<section class="leave-section" style="display: none; ">
+    <h2>Leave Applications</h2>
+    <table id="leaveTable">
+        <thead>
+        <tr>
+            <th>Application ID</th>
+            <th>Subject</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Leave applications will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <div id="leaveDetails" style="display: none;">
+        <h3>Leave Application Details</h3>
+        <p><strong>Application ID:</strong> <span id="leaveAppID"></span></p>
+        <p><strong>Subject:</strong> <span id="leaveSubject"></span></p>
+        <p><strong>Start Date:</strong> <span id="leaveSDate"></span></p>
+        <p><strong>End Date:</strong> <span id="leaveEDate"></span></p>
+        <p><strong>Reason:</strong> <span id="leaveReason"></span></p>
+        <p><strong>Status:</strong> <span id="leaveStatus"></span></p>
+        <!-- Additional details can be added here -->
+    </div>
+
+    <div id="leaveFormContainer">
+        <h3>Create New Leave Application</h3>
+        <form id="leaveForm">
+            <label for="subject">Subject:</label>
+            <select id="subject" name="subject">
+                <option value="">Select a subject</option>
+            </select>
+            <br>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required><br>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required><br>
+            <label for="reason">Reason:</label><br>
+            <textarea id="reason" name="reason" required></textarea><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </section>
 
 <footer>

@@ -58,5 +58,43 @@ def get_student_average_attendance():
     else:
         average_attendance = 0
     cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
-    criterion = cursor.fetchone()['attendencePercentageCriteria']
+    criterion = cursor.fetchall()[0]['attendencePercentageCriteria']
     return jsonify({'average_attendance': round(average_attendance, 2), 'criterion': criterion})
+
+
+@student_bp.route('/getLeaveApplications', methods=['GET'])
+def get_leave_applications():
+    userID = request.args.get('userID')
+    cursor.execute("SELECT * FROM leave_application WHERE studentId = %s", (userID,))
+    applications = cursor.fetchall()
+    print(applications)
+    return jsonify(applications)
+
+
+@student_bp.route('/submitLeaveApplication', methods=['POST'])
+def submit_leave_application():
+    try:
+        # Get data from the request body
+        data = request.json
+
+        # Extract data
+        subject = data.get('subject')
+        startDate = data.get('startDate')
+        endDate = data.get('endDate')
+        reason = data.get('reason')
+        student_id = data.get('studentId')
+        # Fetch facultyid from faculty table
+        cursor.execute("SELECT facultyId FROM faculty WHERE subject = %s", (subject,))
+        faculty_id = cursor.fetchall()[0]['facultyId']
+        # Fetch last application id from leave_application table
+        cursor.execute("SELECT applicationId FROM leave_application ORDER BY applicationId DESC LIMIT 1")
+        last_application_id = cursor.fetchall()[0]['applicationId']
+        sql = "INSERT INTO leave_application VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (last_application_id + 1, student_id, faculty_id, subject, startDate, endDate, reason, "Pending")
+        print(val)
+        cursor.execute(sql, val)
+        db.commit()
+
+        return jsonify({"message": "Leave application submitted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

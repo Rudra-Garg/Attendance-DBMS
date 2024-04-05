@@ -190,3 +190,9 @@ footer {
     bottom: 0;
     width: 100%;
 }
+.leave-section {
+    margin: 0 auto; /* This will center the section horizontally */
+    width: fit-content; /* Optional: Adjust the width based on its content */
+}
+
+

@@ -176,3 +176,17 @@ select *
 from attendance;
 select *
 from login;
+
+create table leave_application
+(
+    applicationId int primary key not NULL,
+    studentId int,
+    facultyId int,
+    subject   varchar(20),
+    start_date      date,
+    end_date date,
+    reason varchar(200),
+    status    enum ("Approved", "Rejected", "Pending")
+);
+
+insert into leave_application values (1, 1, 11, 'Mathematics', '2023-04-01', '2023-04-10', 'Sick Leave', 'Pending');

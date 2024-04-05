@@ -230,13 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function logout()
-    {
-        document.querySelector(".mark").classList.remove("active");
-        document.querySelector(".leave").classList.remove("active");
-        document.querySelector(".defaulter_button").classList.remove("active")
-        document.querySelector(".logout").classList.add("active");
-    }
 
     function fetchDefaulters(subject) {
         document.querySelector(".selectSub").innerText="";
@@ -280,9 +273,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.querySelector('.defaulter_button').addEventListener('click', function () {
         defaulters();
-    });
-    document.querySelector('.logout').addEventListener('click', function () {
-        logout();
     });
 });
 
