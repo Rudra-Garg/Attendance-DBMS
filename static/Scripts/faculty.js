@@ -243,6 +243,17 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(attendance => {
                 console.log(attendance)
+                if(attendance.length==0)
+                {
+                    console.log('table is empty')
+                    document.querySelector(".emptyTable").style.display="block";
+                    document.querySelector("#defaulters_table").style.display="none"
+                }
+                else
+                {
+                    document.querySelector(".emptyTable").style.display="none";
+                     document.querySelector("#defaulters_table").style.display="table"
+                }
                 const tableBody = document.querySelector('#defaulters_table tbody');
                 tableBody.innerHTML = '';
                 attendance.forEach(record => {
