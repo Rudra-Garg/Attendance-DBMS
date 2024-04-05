@@ -107,35 +107,39 @@
     </div>
 </section>
 
-<section class="leave-section" style="display: none;" >
-   
-   <table id="leave-table">
-    <!-- Set display to none initially -->
+<section class="leave-section" style="display: none;">
+    <table id="leave_table" style="color: #EDF7FE;">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>FROM</th>
-            <th>TO</th>
-            <th>REASON</th>
-            <!-- Assuming you want to display the date -->
+            <th>Application ID</th>
+            <th>Subject</th>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Attendance data will be dynamically inserted here -->
-        <!-- test -->
-        <td>1</td>
-        <td>2024-01-01</td>
-        <td>2024-01-02</td>
-        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit molestias sapiente, qui id maxime ipsam facilis minus nulla cumque, nobis suscipit, odit corporis excepturi incidunt deleniti animi saepe voluptate cum.   </td>
+        <!-- Table rows will be dynamically inserted here -->
         </tbody>
-        
     </table>
-    <h1>leave section</h1>
+    <div id="leaveDetails" style="display: none;">
+        <h3>Leave Application Details</h3>
+        <p><strong>Application ID:</strong> <span id="leaveAppID"></span></p>
+        <p><strong>Subject:</strong> <span id="leaveSubject"></span></p>
+        <p><strong>Student ID:</strong> <span id="leaveStudentID"></span></p>
+        <p><strong>Student Name:</strong> <span id="leaveStudentName"></span></p>
+        <p><strong>Start Date:</strong> <span id="leaveSDate"></span></p>
+        <p><strong>End Date:</strong> <span id="leaveEDate"></span></p>
+        <p><strong>Reason:</strong> <span id="leaveReason"></span></p>
+        <p><strong>Status:</strong> <span id="leaveStatus"></span></p>
+        <button class="approveBtn">Approve</button>
+        <button class="rejectBtn">Reject</button>
+    </div>
 </section>
 <section class="defaulters" style="display: none;">
     <table id="defaulters_table" style="color: #EDF7FE;display: none;"> <!-- Set display to none initially -->
         <thead>
-        <tr >
+        <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Average attendance</th>

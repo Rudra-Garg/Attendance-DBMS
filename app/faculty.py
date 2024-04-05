@@ -54,11 +54,47 @@ def mark_attendance():
     subject = data['subject']
     date = data['date']
     status = data['status']
-    print(student_id, faculty_id, subject, date, status)
     cursor.execuuserIDte("INSERT INTO attendance VALUES (%s, %s, %s, %s, %s)",
                          (subject, student_id, faculty_id, date, status))
     db.commit()
     return jsonify({'message': 'Attendance marked successfully'}), 200
+
+
+@faculty_bp.route('/getLeaveApplication', methods=['GET'])
+def get_leave_applications():
+    userID = request.args.get('userID')
+    cursor.execute("select * from leave_application where facultyId = %s", (userID,))
+    applications = cursor.fetchall()
+    for i in applications:
+        cursor.execute("SELECT studentName FROM student WHERE studentId = %s", (i['studentId'],))
+        i['studentName'] = cursor.fetchall()[0]['studentName']
+    return jsonify(applications)
+
+
+@faculty_bp.route('/approveLeave', methods=['POST'])
+def approve_leave():
+    # Get application ID from request body
+    application_id = request.json['applicationId']
+    cursor.execute("UPDATE leave_application SET status = 'Approved' WHERE applicationId = %s", (application_id,))
+    # update the attendance table data if marked as absent
+    cursor.execute("SELECT * FROM leave_application WHERE applicationId = %s", (application_id, ))
+    application = cursor.fetchall()[0]
+    print(application)
+    cursor.execute("UPDATE attendance SET status = 'Present' WHERE studentId = %s and status = 'Absent' "
+                   "and date between %s and %s and subject = %s", (application['studentId'], application['start_date'],
+                                                                   application['end_date'],application['subject']))
+
+    db.commit()
+    return jsonify({'message': 'Leave application approved successfully'}), 200
+
+# Endpoint to reject leave application
+@faculty_bp.route('/rejectLeave', methods=['POST'])
+def reject_leave():
+    # Get application ID from request body
+    application_id = request.json['applicationId']
+    cursor.execute("UPDATE leave_application SET status = 'Rejected' WHERE applicationId = %s", (application_id,))
+    db.commit()
+    return jsonify({'message': 'Leave application rejected successfully'}), 200
 
 
 @faculty_bp.route('/getDefaulters', methods=['GET'])
@@ -68,28 +104,25 @@ def get_defaulters():
     cursor.execute("SELECT studentId FROM student WHERE subject = %s", (subject,))
     user_ids = [result['studentId'] for result in cursor.fetchall()]
     cursor.execute("select attendencePercentageCriteria from faculty where subject = %s", (subject,))
-    criterion = cursor.fetchone()['attendencePercentageCriteria']
-    print(criterion, user_ids)
+    criterion = cursor.fetchall()[0]['attendencePercentageCriteria']
     for id in user_ids:
         cursor.execute(
             "SELECT COUNT(*) AS present_count FROM attendance WHERE studentId = %s AND subject = %s AND status = 'Present'",
             (id, subject))
-        present_count = cursor.fetchone()['present_count']
+        present_count = cursor.fetchall()[0]['present_count']
         cursor.execute("SELECT COUNT(*) AS total_count FROM attendance WHERE studentId = %s AND subject = %s",
                        (id, subject))
-        total_count = cursor.fetchone()['total_count']
+        total_count = cursor.fetchall()[0]['total_count']
         if total_count != 0:
             average_attendance = (present_count / total_count) * 100
         else:
             average_attendance = 0
-        print(average_attendance, criterion)
         if average_attendance < criterion:
             temp = [id]
             cursor.execute("SELECT studentName FROM student WHERE studentId = %s", (id,))
             temp.append(cursor.fetchall()[0]['studentName'])
-            average_attendance=round(average_attendance,2)
+            average_attendance = round(average_attendance, 2)
             temp.append(average_attendance)
             attendance.append(temp)
 
-    print(attendance)
     return jsonify(attendance)

@@ -18,7 +18,6 @@ def get_student_details():
     cursor.execute("SELECT * FROM student WHERE studentId = %s", (userID,))
     result = cursor.fetchall()
     student = result[0]
-    print(student)
     return jsonify(student)
 
 
@@ -38,7 +37,6 @@ def get_student_attendance():
     cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s",
                    (userID, subject))
     attendance = cursor.fetchall()
-    print(attendance)
     return jsonify(attendance)
 
 
@@ -67,7 +65,6 @@ def get_leave_applications():
     userID = request.args.get('userID')
     cursor.execute("SELECT * FROM leave_application WHERE studentId = %s", (userID,))
     applications = cursor.fetchall()
-    print(applications)
     return jsonify(applications)
 
 
@@ -91,7 +88,6 @@ def submit_leave_application():
         last_application_id = cursor.fetchall()[0]['applicationId']
         sql = "INSERT INTO leave_application VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         val = (last_application_id + 1, student_id, faculty_id, subject, startDate, endDate, reason, "Pending")
-        print(val)
         cursor.execute(sql, val)
         db.commit()
 

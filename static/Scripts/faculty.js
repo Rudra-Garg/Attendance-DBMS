@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Retrieve the user ID from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const userID = urlParams.get('userID');
+
     // document.querySelector("wrapper").style.display="block";
     function fetchFacultyDetails() {
         fetch('/getFacultyDetails?userID=' + userID) // Replace with your actual endpoint to fetch faculty details
@@ -37,8 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(subjects => {
                 // Populate subject buttons on the webpage
                 const nav = document.getElementById('subjectNav');
-                subjects.forEach(subject => {
+                subjects.forEach((subject, index) => {
                     const button = document.createElement('button');
+                    button.id = `subject-${index}`;
                     button.textContent = subject.subject;
                     button.addEventListener('click', function () {
                         selected_subject = subject.subject;
@@ -205,8 +207,71 @@ document.addEventListener('DOMContentLoaded', function () {
         if (defaulter.style.display === "block") {
             defaulter.style.display = "none";
         }
+        fetchLeaveApplication();
     }
-  
+
+    function fetchLeaveApplication() {
+
+        fetch('/getLeaveApplication?userID=' + userID)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch leave application');
+                }
+            })
+            .then(leaveApplication => {
+                console.log(leaveApplication)
+                const tableBody = document.querySelector('#leave_table tbody');
+                if (tableBody) {
+                    tableBody.innerHTML = ''; // Clear existing table rows
+                    // Add table rows here
+                } else {
+                    console.error('Table body not found');
+                }
+
+                leaveApplication.forEach(application => {
+                    console.log(application);
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${application.applicationId}</td>
+                    <td>${application.subject}</td>
+                    <td>${application.studentId}</td>
+                    <td>${application.studentName}</td>
+                    <td>${application.status}</td>
+                    `;
+                    tr.addEventListener('click', function () {
+                        showLeaveDetails(application);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function showLeaveDetails(application) {
+        document.getElementById('leaveAppID').textContent = application.applicationId;
+        document.getElementById('leaveSubject').textContent = application.subject;
+        document.getElementById('leaveStudentID').textContent = application.studentId;
+        document.getElementById('leaveStudentName').textContent = application.studentName;
+        document.getElementById('leaveSDate').textContent = application.start_date.substring(0, 16);
+        document.getElementById('leaveEDate').textContent = application.end_date.substring(0, 16);
+        document.getElementById('leaveReason').textContent = application.reason;
+        document.getElementById('leaveStatus').textContent = application.status;
+        document.getElementById('leaveDetails').style.display = 'block';
+    }
+
+    document.querySelector('.approveBtn').addEventListener('click', function () {
+        approveLeave();
+        setTimeout(fetchLeaveApplication,1000);
+    });
+
+    document.querySelector('.rejectBtn').addEventListener('click', function () {
+        rejectLeave();
+        setTimeout(fetchLeaveApplication,1000);
+    });
 
     // Close the dropdown if the user clicks outside of it
     function defaulters(subject) {
@@ -228,11 +293,57 @@ document.addEventListener('DOMContentLoaded', function () {
         if (defaulter.style.display === "none") {
             defaulter.style.display = "block";
         }
+        document.getElementById("subject-0").click();
     }
 
+    function approveLeave() {
+        const applicationId = document.getElementById('leaveAppID').textContent;
+        // Call API to approve the leave application with the provided applicationId
+        fetch('/approveLeave', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({applicationId})
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Leave application approved successfully');
+                    // Optionally, update UI or perform other actions
+                } else {
+                    throw new Error('Failed to approve leave application');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function rejectLeave() {
+        const applicationId = document.getElementById('leaveAppID').textContent;
+        // Call API to reject the leave application with the provided applicationId
+        fetch('/rejectLeave', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({applicationId})
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Leave application rejected successfully');
+                    // Optionally, update UI or perform other actions
+                } else {
+                    throw new Error('Failed to reject leave application');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
     function fetchDefaulters(subject) {
-        document.querySelector(".selectSub").innerText="";
+        document.querySelector(".selectSub").innerText = "";
         fetch('/getDefaulters?subject=' + subject)
             .then(response => {
                 if (response.ok) {
@@ -243,16 +354,13 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(attendance => {
                 console.log(attendance)
-                if(attendance.length==0)
-                {
+                if (attendance.length == 0) {
                     console.log('table is empty')
-                    document.querySelector(".emptyTable").style.display="block";
-                    document.querySelector("#defaulters_table").style.display="none"
-                }
-                else
-                {
-                    document.querySelector(".emptyTable").style.display="none";
-                     document.querySelector("#defaulters_table").style.display="table"
+                    document.querySelector(".emptyTable").style.display = "block";
+                    document.querySelector("#defaulters_table").style.display = "none"
+                } else {
+                    document.querySelector(".emptyTable").style.display = "none";
+                    document.querySelector("#defaulters_table").style.display = "table"
                 }
                 const tableBody = document.querySelector('#defaulters_table tbody');
                 tableBody.innerHTML = '';
@@ -274,8 +382,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             );
     }
-     
-    
+
+
     document.querySelector('.mark').addEventListener('click', function () {
         markAttendance();
     });
@@ -295,3 +403,36 @@ document.querySelector('.mark').addEventListener('click', function () {
 
 
 });
+
+function fetchLeaveApplication() {
+
+    fetch('/getLeaveApplication?userID=' + 11)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to fetch leave application');
+            }
+        })
+        .then(leaveApplication => {
+            console.log(leaveApplication)
+            const tableBody = document.querySelector('#leave_table tbody');
+            tableBody.innerHTML = ''; // Clear existing table rows
+            leaveApplication.forEach(application => {
+                console.log(application);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${application.applicationId}</td>
+                    <td>${application.subject}</td>
+                    <td>${application.student_id}</td>
+                    <td>${application.status}</td>
+            }
+                    `;
+                tableBody.appendChild(tr);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
