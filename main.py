@@ -2,7 +2,7 @@ from app import *
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__) 
     app.register_blueprint(student_bp)
     app.register_blueprint(faculty_bp)
     app.register_blueprint(login_bp)

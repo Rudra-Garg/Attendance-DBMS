@@ -2,9 +2,9 @@
 import mysql.connector
 
 db = mysql.connector.connect(
-      host="localhost",
+        host="localhost",
     user="root",
-    password="0000",
+    password="ManHunter@471",
     database="attendance_system"
 )
 

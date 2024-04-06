@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function markAttendance() {
+       
         document.querySelector(".mark").classList.add("active");
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.remove("active")
@@ -189,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function leaveApplication() {
+     
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.add("active");
         document.querySelector(".defaulter_button").classList.remove("active")
@@ -242,14 +244,75 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
                     tr.addEventListener('click', function () {
                         showLeaveDetails(application);
+    
                     });
-                    tableBody.appendChild(tr);
+                     tableBody.appendChild(tr);
                 });
             })
             .catch(error => {
                 console.error('Error:', error);
             });
     }
+
+//  function fetchLeaveApplication() {
+
+//         fetch('/getLeaveApplication?userID=' + userID)
+//             .then(response => {
+//                 if (response.ok) {
+//                     return response.json();
+//                 } else {
+//                     throw new Error('Failed to fetch leave application');
+//                 }
+//             })
+//             .then(leaveApplication => {
+//                 console.log(leaveApplication)
+//                 const tableBody = document.querySelector('#leave_table tbody');
+//                 if (tableBody) {
+//                     tableBody.innerHTML = ''; // Clear existing table rows
+//                     // Add table rows here
+//                 } else {
+//                     console.error('Table body not found');
+//                 }
+//                 leaveApplication.forEach(application => {
+//                     console.log(application);
+//                     const tr = document.createElement('tr');
+//                     tr.innerHTML = `
+//                     <td>${application.applicationId}</td>
+//                     <td>${application.subject}</td>
+//                     <td>${application.studentId}</td>
+//                     <td>${application.studentName}</td>
+//                     <td>${application.status}</td>
+//                     `;
+//                     tr.addEventListener('click', function (e) {
+                        
+//                         const target = e.target.closest('tr');
+//                         if (!target) return; 
+//                         const newRow=document.createElement('tr'); 
+//                         newRow.innerHTML = document.getElementById('some').innerHTML;
+                        
+//                         const addedRow = document.querySelector('.added-row');
+//                         if (addedRow) addedRow.remove();
+//                         newRow.classList.add('added-row');
+//                         newRow.classList.add('non-hoverable');
+//                         const fisrtRow = document.querySelector('#some');
+//                         if(fisrtRow) document.getElementById('some').remove();
+                        
+//                         newRow.id ='some';
+                        
+//                         target.parentNode.insertBefore(newRow, target.nextSibling);
+//                         showLeaveDetails(application);  
+                        
+//                     });
+//                      tableBody.appendChild(tr);
+//                 });
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//             });
+//     }
+
+
+
 
     function showLeaveDetails(application) {
         document.getElementById('leaveAppID').textContent = application.applicationId;
@@ -260,7 +323,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('leaveEDate').textContent = application.end_date.substring(0, 16);
         document.getElementById('leaveReason').textContent = application.reason;
         document.getElementById('leaveStatus').textContent = application.status;
-        document.getElementById('leaveDetails').style.display = 'block';
+        //  document.getElementById('leaveDetails').style.display = 'block';
+        //  document.getElementById('leaveBtns').style.display = 'block';
+         document.getElementById('some').style.display = "";
     }
 
     document.querySelector('.approveBtn').addEventListener('click', function () {
@@ -275,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Close the dropdown if the user clicks outside of it
     function defaulters(subject) {
+        
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.add("active")
@@ -385,12 +451,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     document.querySelector('.mark').addEventListener('click', function () {
+        document.getElementById('subjectNav').style.display = "";
         markAttendance();
     });
-    document.querySelector('.leave').addEventListener('click', function () {
-        leaveApplication();
+    document.querySelector('.leave').addEventListener('click', function (e) {
+        document.getElementById('subjectNav').style.display = "none";
+        leaveApplication(e);
     });
     document.querySelector('.defaulter_button').addEventListener('click', function () {
+        document.getElementById('subjectNav').style.display = "";
         defaulters();
     });
 });
