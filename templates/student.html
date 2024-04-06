@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2196F3">
+    <script src="https://kit.fontawesome.com/927c674a72.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/CSS/student.css">
-
-
+    <link rel="stylesheet" href="/static/CSS/studentSidebar.css">
     <title>Student Webpage</title>
 </head>
 <body>
@@ -26,38 +25,32 @@
             </div>
         </div>
         <div class="sidebar">
-            <!--profile image & text-->
+            <!-- Sidebar for John Doe -->
             <div class="profile">
-                <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img
-                        src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
-                <h3 id="studentName">NAME</h3>
-                <p id="studentEmail">Faculty</p>
-                <p id="studentID"></p>
-
+                <img src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile">
+                <p>John Doe</p>
+                <p>john.doe@example.com</p>
+                <p>ID: 1</p>
             </div>
-            <!--menu item-->
             <ul>
-
                 <li>
-                    <a class="active mark">
+                    <a class="active mark ">
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Attendance Records</span>
+                        <span class="item">Check Attendance</span>
                     </a>
                 </li>
                 <li>
                     <a class="leave">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">Leave application</span>
+                        <span class="item">Leave Application</span>
                     </a>
                 </li>
-                <li>
+ <li>
                     <a class="logout" href="/">
                         <span class="icon"><i class="fa fa-sign-out"></i></span>
                         <span class="item">Log out</span>
                     </a>
-                </li>
-
-            </ul>
+                </li>            </ul>
         </div>
     </div>
     <script>
@@ -72,14 +65,7 @@
 </nav>
 
 <section class="Attendance-Section" style="display: block;">
-    <!--<h1>Student Details</h1>
-    <div>
-        <p><strong>STUDENT ID:</strong> <span id="studentID"></span></p>
-        <p><strong>NAME:</strong> <span id="studentName"></span></p>
-        <p><strong>EMAIL:</strong> <span id="studentEmail"></span></p>
-    </div>-->
-    <div id="attendanceContainer">
-    </div>
+    <div id="attendanceBtnContainer"></div> <!-- Container for the "Show Attendance" button -->
     <div id="averageAttendance" style="display:none;">
         <p>ATTENDANCE PERCENTAGE: <strong id="percent">40%</strong></p>
         <div id="progressBar">
@@ -90,30 +76,27 @@
 
     <table id="attendanceTable" style="display: none;"> <!-- Set display to none initially -->
         <thead>
-        <tr>
-            <th>DATE</th>
-            <th>ATTENDANCE</th>
-            <!-- Assuming you want to display the date -->
-        </tr>
+            <tr>
+                <th>DATE</th>
+                <th>ATTENDANCE</th>
+            </tr>
         </thead>
         <tbody>
-        <!-- Attendance data will be dynamically inserted here -->
+            <!-- Attendance data will be dynamically inserted here -->
         </tbody>
     </table>
 </section>
 
 <section class="leave-section" style="display: none; ">
-    <h2>Leave Applications</h2>
+    
     <table id="leaveTable">
         <thead>
-        <tr>
-            <th>Application ID</th>
-            <th>Subject</th>
-            <th>Status</th>
-        </tr>
+            <tr>
+                
+            </tr>
         </thead>
         <tbody>
-        <!-- Leave applications will be dynamically inserted here -->
+            <!-- Leave applications will be dynamically inserted here -->
         </tbody>
     </table>
 
@@ -130,17 +113,25 @@
     <div id="leaveFormContainer">
         <h3>Create New Leave Application</h3>
         <form id="leaveForm">
-            <label for="subject">Subject:</label>
-            <select id="subject" name="subject">
-                <option value="">Select a subject</option>
-            </select>
-            <br>
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required><br>
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" name="endDate" required><br>
-            <label for="reason">Reason:</label><br>
-            <textarea id="reason" name="reason" required></textarea><br>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select id="subject" name="subject" required>
+                    <option value="">Select a subject</option>
+                    <!-- Populate options dynamically -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason:</label>
+                <textarea id="reason" name="reason" required></textarea>
+            </div>
             <button type="submit">Submit</button>
         </form>
     </div>
