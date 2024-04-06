@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function fetchAttendanceData(subject) {
         document.getElementById('attendanceTable').style.display = 'none';
-        document.getElementById('attendanceBtnContainer').innerHTML = '';
+        document.getElementById('attendanceContainer').innerHTML = '';
 
         fetch('/getStudentAttendance?userID=' + userID + '&subject=' + subject)
             .then(response => {
@@ -77,13 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
 
                 setTimeout(fetchAverageAttendance, 1000, subject);
-                /*const showAttendanceBtn = document.createElement('button');
-                showAttendanceBtn.textContent = 'Show Attendance';
-                showAttendanceBtn.addEventListener('click', function () {
-                    document.getElementById('attendanceTable').style.display = 'block';
-                    document.getElementById('averageAttendance').style.display = 'block';
-                });
-                document.getElementById('attendanceBtnContainer').appendChild(showAttendanceBtn);*/
+                // show subject in the attendance  container in a h3 tag
+                document.getElementById('attendanceContainer').innerHTML = `<h2>${subject}</h2>`;
                 document.getElementById('attendanceTable').style.display = 'block';
                 document.getElementById('averageAttendance').style.display = 'block';
             })
