@@ -436,14 +436,100 @@ footer {
     width: 100%;
 }
 
-.leave-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    width: 100%;
+
+
+.leave-section h2 {
+    margin-bottom: 20px;
 }
 
+#leaveTable {
+    width: 80%;
+    max-width: 800px; /* Adjust the maximum width as needed */
+    /* border-collapse: collapse; */
+    margin: 0 auto 20px; /* Center the table horizontally */
+    color: #120966;
+}
+
+#leaveTable th,
+#leaveTable td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #120966;
+
+}
+
+#leaveTable th {
+    background-color: #f3f3f4;
+    color: #1d146d;
+
+}
+
+.leave-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.leave-section h2 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    display: block;
+    padding: 10px 20px;
+    background-color: #1d146d;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: fit-content;
+    margin: 0 auto 30px;
+}
+#leaveDetails {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 2px solid #3498db;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#leaveDetails h3 {
+    color: #125f92;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#leaveDetails p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#leaveDetails strong {
+    color: #125f92;
+    font-weight: bold;
+}
+
+#leaveDetails span {
+    font-weight: normal;
+}
+#leaveFormContainer {
+    width: 80%;
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto; /* Center the form container horizontally */
+}
+
+#leaveFormContainer form {
+    width: 100%;
+}
 #leaveFormContainer {
     background-color: #fff;
     border: 2px solid #3498db;
