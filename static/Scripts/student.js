@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(fetchAverageAttendance, 1000, subject);
                 // show subject in the attendance  container in a h3 tag
                 document.getElementById('attendanceContainer').innerHTML = `<h2>${subject}</h2>`;
-                document.getElementById('attendanceTable').style.display = 'block';
+                document.getElementById('attendanceTable').style.display = 'table';
                 document.getElementById('averageAttendance').style.display = 'block';
             })
             .catch(error => {

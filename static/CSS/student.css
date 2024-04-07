@@ -395,6 +395,8 @@ section.Attendance-Section {
 
 
 #attendanceTable {
+    display: table;
+    margin: auto;
     margin-top: 20px;
     border-collapse: collapse;
 }
@@ -460,9 +462,18 @@ footer {
 }
 
 #leaveTable th {
-    background-color: #f3f3f4;
-    color: #1d146d;
+    color: #ffffff;
+   background-color: #252584;
 
+}
+#leaveTable td{
+
+color: #ffffff;
+   background-color: #8585cea5;
+   
+}
+#leaveTable tr :hover{
+    cursor: pointer;
 }
 
 .leave-section {
