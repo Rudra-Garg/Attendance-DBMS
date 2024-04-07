@@ -53,7 +53,7 @@ nav {
 
 nav button {
   position: relative;
-  left: 5.5%;
+  left: 6.5%;
   text-decoration: none;
   color: #ffffff;
   font-size: 19px;
@@ -115,12 +115,16 @@ section.attendance-section {
 
 footer {
   text-align: center;
+  /* margin-left: 6.5%; */
   padding: 10px;
   background-color:rgba(54, 6, 84, 0.8);
   color: #fff;
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+footer p{
+  margin-left: 13%;
 }
 
 .nextBtn {
@@ -286,6 +290,8 @@ footer {
   align-items: center;
   justify-content: center; */
   /* margin-left: 39.5%; */
+  position: relative;
+  left: 6.5%;
   display: flex;
   justify-content: center; /* Centers the table horizontally */
   width: 100%; /* Full width of its parent */
@@ -383,6 +389,8 @@ footer {
 
 .leave-section
 {
+  position: relative;
+    left: 6.5%;
   display: flex;
   justify-content: center; /* Centers the table horizontally */
   width: 100%; /* Full width of its parent */
