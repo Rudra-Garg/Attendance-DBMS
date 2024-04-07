@@ -102,7 +102,7 @@ section.attendance-section {
   background-color: #EDF7FE;
   /* background-color: #f3f5f7e3; */
   width: 35%;
-  height: 50vh;
+  height: 55vh;
   margin: 0 auto;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -123,8 +123,8 @@ footer {
   outline: 0;
   /* text-align: rig20pxht; */
   position: fixed;
-  bottom:35% ;
-  right: 15%;
+  bottom: 37.5%;
+  right: 21%;
 
   background: #f075d5a8;
   /* width: 100%; */
@@ -141,7 +141,7 @@ footer {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .nextBtn:hover,.nextBtn:active,.nextBtn:focus {
-  background: #57abc398;
+  background: #f075d5fe;
 }
 
 .backBtn {
@@ -150,8 +150,8 @@ footer {
   outline: 0;
   /* text-align: rig20pxht; */
   position: fixed;
-  bottom:35% ;
-  left: 15%;
+  bottom: 37.5%;
+  left: 21%;
 
   background: #f075d5a8;
   /* width: 100%; */
@@ -168,7 +168,7 @@ footer {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .backBtn:hover,.backBtn:active,.backBtn:focus {
-  background: #b3c35779;
+  background: #f075d5fe;
 }
 
 .submit{

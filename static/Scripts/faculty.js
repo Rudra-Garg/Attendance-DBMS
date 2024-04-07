@@ -172,6 +172,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     previousMessageDiv.remove();
                 }
                 const messageDiv = document.createElement('div');
+                messageDiv.style.marginTop = '15px';
+                messageDiv.style.color = 'green';
                 messageDiv.textContent = data.message; // Assuming the response contains a 'message' field
                 document.querySelector('.submit').insertAdjacentElement('afterend', messageDiv);
             })
