@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     nav.appendChild(button);
                 });
+                document.getElementById("subject-0").click();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetchFacultyDetails();
     setTimeout(fetchSubjectButtons, 1000);
+
     let userIDIndex = 0;
     let studentUserIDs = [];
 
@@ -107,13 +109,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     document.querySelector('.nextBtn').addEventListener('click', function () {
-        userIDIndex = (userIDIndex + 1) % studentUserIDs.length; // Increment the index
+        userIDIndex = (userIDIndex + 1) % studentUserIDs.length;
+        const previousMessageDiv = document.querySelector('.submit').nextElementSibling;
+        if (previousMessageDiv) {
+            previousMessageDiv.remove();
+        }
         updateStudentDetails(); // Update student details
     });
 
     // Event listener for the "Back" button
     document.querySelector('.backBtn').addEventListener('click', function () {
         userIDIndex = (userIDIndex - 1 + studentUserIDs.length) % studentUserIDs.length; // Decrement the index
+        const previousMessageDiv = document.querySelector('.submit').nextElementSibling;
+        if (previousMessageDiv) {
+            previousMessageDiv.remove();
+        }
         updateStudentDetails(); // Update student details
     });
     document.querySelector('.submit').addEventListener('click', function () {
@@ -141,26 +151,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const data = {
-            'faculty_id': userID,
-            'student_id': studentID,
-            'subject': selected_subject,
-            'date': date,
-            'status': status
+            'faculty_id': userID, 'student_id': studentID, 'subject': selected_subject, 'date': date, 'status': status
         };
 
         fetch('/markAttendance', {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            }, body: JSON.stringify(data)
         })
             .then(response => {
                 if (response.ok) {
-                    console.log('Attendance marked successfully');
+                    return response.json();
                 } else {
                     throw new Error('Failed to mark attendance');
                 }
+            })
+            .then(data => {
+                const previousMessageDiv = document.querySelector('.submit').nextElementSibling;
+                if (previousMessageDiv) {
+                    previousMessageDiv.remove();
+                }
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = data.message; // Assuming the response contains a 'message' field
+                document.querySelector('.submit').insertAdjacentElement('afterend', messageDiv);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -168,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function markAttendance() {
-       
+
         document.querySelector(".mark").classList.add("active");
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.remove("active")
@@ -187,10 +200,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (defaulter.style.display === "block") {
             defaulter.style.display = "none";
         }
+        document.getElementById("subject-0").click();
     }
 
     function leaveApplication() {
-     
+
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.add("active");
         document.querySelector(".defaulter_button").classList.remove("active")
@@ -226,8 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(leaveApplication)
                 const tableBody = document.querySelector('#leave_table tbody');
                 if (tableBody) {
-                    tableBody.innerHTML = ''; // Clear existing table rows
-                    // Add table rows here
+                    detachLeaveDetailsRow();
+                    tableBody.innerHTML = '';
                 } else {
                     console.error('Table body not found');
                 }
@@ -243,8 +257,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${application.status}</td>
                     `;
                     tr.addEventListener('click', function () {
+                        reattachLeaveDetailsRow();
                         showLeaveDetails(application);
-    
                     });
                     if (tableBody.firstChild) {
                         tableBody.insertBefore(tr, tableBody.firstChild);
@@ -258,64 +272,21 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-//  function fetchLeaveApplication() {
 
-//         fetch('/getLeaveApplication?userID=' + userID)
-//             .then(response => {
-//                 if (response.ok) {
-//                     return response.json();
-//                 } else {
-//                     throw new Error('Failed to fetch leave application');
-//                 }
-//             })
-//             .then(leaveApplication => {
-//                 console.log(leaveApplication)
-//                 const tableBody = document.querySelector('#leave_table tbody');
-//                 if (tableBody) {
-//                     tableBody.innerHTML = ''; // Clear existing table rows
-//                     // Add table rows here
-//                 } else {
-//                     console.error('Table body not found');
-//                 }
-//                 leaveApplication.forEach(application => {
-//                     console.log(application);
-//                     const tr = document.createElement('tr');
-//                     tr.innerHTML = `
-//                     <td>${application.applicationId}</td>
-//                     <td>${application.subject}</td>
-//                     <td>${application.studentId}</td>
-//                     <td>${application.studentName}</td>
-//                     <td>${application.status}</td>
-//                     `;
-//                     tr.addEventListener('click', function (e) {
-                        
-//                         const target = e.target.closest('tr');
-//                         if (!target) return; 
-//                         const newRow=document.createElement('tr'); 
-//                         newRow.innerHTML = document.getElementById('some').innerHTML;
-                        
-//                         const addedRow = document.querySelector('.added-row');
-//                         if (addedRow) addedRow.remove();
-//                         newRow.classList.add('added-row');
-//                         newRow.classList.add('non-hoverable');
-//                         const fisrtRow = document.querySelector('#some');
-//                         if(fisrtRow) document.getElementById('some').remove();
-                        
-//                         newRow.id ='some';
-                        
-//                         target.parentNode.insertBefore(newRow, target.nextSibling);
-//                         showLeaveDetails(application);  
-                        
-//                     });
-//                      tableBody.appendChild(tr);
-//                 });
-//             })
-//             .catch(error => {
-//                 console.error('Error:', error);
-//             });
-//     }
+    const leaveDetailsRow = document.getElementById('some');
 
+    function detachLeaveDetailsRow() {
+        if (leaveDetailsRow.parentNode) {
+            leaveDetailsRow.parentNode.removeChild(leaveDetailsRow);
+        }
+    }
 
+    function reattachLeaveDetailsRow() {
+        const tableBody = document.querySelector('#leave_table tbody');
+        if (tableBody) {
+            tableBody.appendChild(leaveDetailsRow);
+        }
+    }
 
 
     function showLeaveDetails(application) {
@@ -329,22 +300,22 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('leaveStatus').textContent = application.status;
         //  document.getElementById('leaveDetails').style.display = 'block';
         //  document.getElementById('leaveBtns').style.display = 'block';
-         document.getElementById('some').style.display = "";
+        document.getElementById('some').style.display = "";
     }
 
     document.querySelector('.approveBtn').addEventListener('click', function () {
         approveLeave();
-        setTimeout(fetchLeaveApplication,1000);
+        setTimeout(fetchLeaveApplication, 1000);
     });
 
     document.querySelector('.rejectBtn').addEventListener('click', function () {
         rejectLeave();
-        setTimeout(fetchLeaveApplication,1000);
+        setTimeout(fetchLeaveApplication, 1000);
     });
 
     // Close the dropdown if the user clicks outside of it
     function defaulters(subject) {
-        
+
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.add("active")
@@ -370,11 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const applicationId = document.getElementById('leaveAppID').textContent;
         // Call API to approve the leave application with the provided applicationId
         fetch('/approveLeave', {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({applicationId})
+            }, body: JSON.stringify({applicationId})
         })
             .then(response => {
                 if (response.ok) {
@@ -393,11 +362,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const applicationId = document.getElementById('leaveAppID').textContent;
         // Call API to reject the leave application with the provided applicationId
         fetch('/rejectLeave', {
-            method: 'POST',
-            headers: {
+            method: 'POST', headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({applicationId})
+            }, body: JSON.stringify({applicationId})
         })
             .then(response => {
                 if (response.ok) {
@@ -448,9 +415,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             })
             .catch(error => {
-                    console.error('Error:', error);
-                }
-            );
+                console.error('Error:', error);
+            });
     }
 
 
@@ -460,14 +426,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.querySelector('.leave').addEventListener('click', function (e) {
         document.getElementById('subjectNav').style.display = "none";
-        leaveApplication(e);
+        leaveApplication();
     });
     document.querySelector('.defaulter_button').addEventListener('click', function () {
         document.getElementById('subjectNav').style.display = "";
         defaulters();
     });
 });
-
+/*
 document.querySelector('.mark').addEventListener('click', function () {
 
     document.getElementsByClassName("attendance-section").style.display = "none";
@@ -475,37 +441,4 @@ document.querySelector('.mark').addEventListener('click', function () {
     document.getElementsByClassName("backBtn").style.display = "visible";
 
 
-});
-
-function fetchLeaveApplication() {
-
-    fetch('/getLeaveApplication?userID=' + 11)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed to fetch leave application');
-            }
-        })
-        .then(leaveApplication => {
-            console.log(leaveApplication)
-            const tableBody = document.querySelector('#leave_table tbody');
-            tableBody.innerHTML = ''; // Clear existing table rows
-            leaveApplication.forEach(application => {
-                console.log(application);
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${application.applicationId}</td>
-                    <td>${application.subject}</td>
-                    <td>${application.student_id}</td>
-                    <td>${application.status}</td>
-            }
-                    `;
-                tableBody.appendChild(tr);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
+});*/

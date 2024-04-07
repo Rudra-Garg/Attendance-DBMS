@@ -56,10 +56,25 @@ def mark_attendance():
     subject = data['subject']
     date = data['date']
     status = data['status']
-    cursor.execuuserIDte("INSERT INTO attendance VALUES (%s, %s, %s, %s, %s)",
-                         (subject, student_id, faculty_id, date, status))
-    db.commit()
-    return jsonify({'message': 'Attendance marked successfully'}), 200
+
+    # Check if the attendance record already exists
+    cursor.execute("SELECT * FROM attendance WHERE subject = %s AND studentId = %s AND date = %s",
+                   (subject, student_id, date))
+    existing_record = cursor.fetchone()
+
+    if existing_record:
+        # If the record exists, update the status
+        cursor.execute("UPDATE attendance SET status = %s WHERE subject = %s AND studentId = %s AND date = %s",
+                       (status, subject, student_id, date))
+        db.commit()
+        return jsonify({'message': 'Attendance updated successfully'}), 200
+    else:
+        # If the record does not exist, insert a new record
+        cursor.execute(
+            "INSERT INTO attendance (subject, studentId, facultyId, date, status) VALUES (%s, %s, %s, %s, %s)",
+            (subject, student_id, faculty_id, date, status))
+        db.commit()
+        return jsonify({'message': 'Attendance marked successfully'}), 200
 
 
 @faculty_bp.route('/getLeaveApplication', methods=['GET'])
@@ -79,15 +94,16 @@ def approve_leave():
     application_id = request.json['applicationId']
     cursor.execute("UPDATE leave_application SET status = 'Approved' WHERE applicationId = %s", (application_id,))
     # update the attendance table data if marked as absent
-    cursor.execute("SELECT * FROM leave_application WHERE applicationId = %s", (application_id, ))
+    cursor.execute("SELECT * FROM leave_application WHERE applicationId = %s", (application_id,))
     application = cursor.fetchall()[0]
     print(application)
     cursor.execute("UPDATE attendance SET status = 'Present' WHERE studentId = %s and status = 'Absent' "
                    "and date between %s and %s and subject = %s", (application['studentId'], application['start_date'],
-                                                                   application['end_date'],application['subject']))
+                                                                   application['end_date'], application['subject']))
 
     db.commit()
     return jsonify({'message': 'Leave application approved successfully'}), 200
+
 
 # Endpoint to reject leave application
 @faculty_bp.route('/rejectLeave', methods=['POST'])
