@@ -12,7 +12,7 @@
 </head>
 <body>
 <header>
-    <h1>YOUR ATTENDANCE</h1>
+    <h1>STUDENT PORTAL</h1>
 </header>
 <div style="position: absolute; top:5%" class="wrapper">
     <!--Top menu -->
@@ -107,14 +107,14 @@
         <h3>Leave Application Details</h3>
         <p><strong>Application ID:</strong> <span id="leaveAppID"></span></p>
         <p><strong>Subject:</strong> <span id="leaveSubject"></span></p>
-        <p><strong>Start Date:</strong> <span id="leaveSDate"></span></p>
-        <p><strong>End Date:</strong> <span id="leaveEDate"></span></p>
-        <p><strong>Reason:</strong> <span id="leaveReason"></span></p>
+        <p><strong>From:</strong> <span id="leaveSDate"></span></p>
+        <p><strong>To:</strong> <span id="leaveEDate"></span></p>
+        <p><strong>Reason Specified:</strong> <span id="leaveReason"></span></p>
         <p><strong>Status:</strong> <span id="leaveStatus"></span></p>
     </div>
 
     <div id="leaveFormContainer">
-        <h3>Create New Leave Application</h3>
+        <h3>Request For Leave</h3>
         <form id="leaveForm">
             <div class="form-group">
                 <label for="subject">Subject:</label>
@@ -124,15 +124,15 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="startDate">Start Date:</label>
+                <label for="startDate">From:</label>
                 <input type="date" id="startDate" name="startDate" required>
             </div>
             <div class="form-group">
-                <label for="endDate">End Date:</label>
+                <label for="endDate">To:</label>
                 <input type="date" id="endDate" name="endDate" required>
             </div>
             <div class="form-group">
-                <label for="reason">Reason:</label>
+                <label for="reason">Specify the Reason:</label>
                 <textarea id="reason" name="reason" required></textarea>
             </div>
             <button type="submit">Submit</button>
