@@ -56,6 +56,12 @@
                     </a>
                 </li>
                 <li>
+                    <a class="show_attendance">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">Check Attendance</span>
+                    </a>
+                </li>
+                <li>
                     <a class="logout" href="/">
                         <span class="icon"><i class="fa fa-sign-out"></i></span>
                         <span class="item">Log out</span>
@@ -157,6 +163,28 @@
     </table>
     <p class="selectSub">Please select a subject</p>
     <p class="emptyTable" style="display: none;">There are no defaulters.</p>
+</section>
+<section class="attendance-page" style="display: none;">
+    <label for="studentDropdown">Roll No. </label><select id="studentDropdown">
+        <!-- Options will be dynamically inserted here -->
+    </select>
+    <button id="attendance-button">Show Attendance</button><br>
+     <h3>Student Details</h3>
+    <div id="student-details">
+        <!-- Student details will be dynamically inserted here -->
+    </div>
+    <table id="attendance-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="attendance-data">
+            <!-- Attendance data will be dynamically inserted here -->
+        </tbody>
+    </table>
 </section>
 <footer>
     YEAR 2024-25
