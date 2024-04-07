@@ -1,6 +1,6 @@
 ### Example user template template
 ### Example user template
-
+app/connection.py
 # IntelliJ project files
 .idea
 *.iml

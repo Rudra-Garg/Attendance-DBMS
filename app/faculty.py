@@ -15,6 +15,7 @@ def faculty_page():
 @faculty_bp.route('/getFacultyDetails', methods=['GET'])
 def get_faculty_details():
     userID = request.args.get('userID')
+    print("UID; ", userID)
     cursor.execute("SELECT * FROM faculty WHERE facultyId = %s", (userID,))
     faculty = cursor.fetchall()
     faculty = faculty[0]
@@ -24,6 +25,7 @@ def get_faculty_details():
 @faculty_bp.route('/getFacultySubjects', methods=['GET'])
 def get_faculty_subjects():
     userID = request.args.get('userID')
+    print(userID)
     cursor.execute("SELECT subject FROM faculty WHERE facultyId = %s", (userID,))
     subjects = cursor.fetchall()
     return jsonify(subjects)

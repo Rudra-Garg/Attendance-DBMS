@@ -27,10 +27,11 @@
         <div class="sidebar">
             <!-- Sidebar for John Doe -->
             <div class="profile">
-                <img src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile">
-                <p>John Doe</p>
-                <p>john.doe@example.com</p>
-                <p>ID: 1</p>
+                <a href="https://ibb.co/bb8mG95" style="pointer-events: none;"> <img
+                        src="https://i.ibb.co/bb8mG95/profile.jpg" alt="profile" border="0"></a>
+                <h3 id="studentName">NAME</h3>
+                <p id="studentEmail">Faculty</p>
+                <p id="studentID"></p>
             </div>
             <ul>
                 <li>
@@ -65,7 +66,7 @@
 </nav>
 
 <section class="Attendance-Section" style="display: block;">
-    <div id="attendanceBtnContainer"></div> <!-- Container for the "Show Attendance" button -->
+    <div id="attendanceContainer"></div> <!-- Container for the "Show Attendance" button -->
     <div id="averageAttendance" style="display:none;">
         <p>ATTENDANCE PERCENTAGE: <strong id="percent">40%</strong></p>
         <div id="progressBar">
@@ -88,11 +89,13 @@
 </section>
 
 <section class="leave-section" style="display: none; ">
-    
+<h2>Leave Applications</h2>
     <table id="leaveTable">
         <thead>
-            <tr>
-                
+        <tr>
+            <th>Application ID</th>
+            <th>Subject</th>
+            <th>Status</th>
             </tr>
         </thead>
         <tbody>
