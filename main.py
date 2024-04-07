@@ -14,7 +14,7 @@ app = create_app()
 
 @app.route('/')
 def login_page():
-    return render_template('login.html')
+    return render_template('login.html')    
 
 
 if __name__ == "__main__":

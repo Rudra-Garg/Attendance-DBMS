@@ -246,7 +246,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         showLeaveDetails(application);
     
                     });
-                     tableBody.appendChild(tr);
+                    if (tableBody.firstChild) {
+                        tableBody.insertBefore(tr, tableBody.firstChild);
+                    } else {
+                        tableBody.appendChild(tr);
+                    }
                 });
             })
             .catch(error => {
