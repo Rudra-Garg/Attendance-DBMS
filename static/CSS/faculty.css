@@ -448,3 +448,91 @@ box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
   background-color: #9d15f6eb;
 }
 
+ .attendance-page{
+  position: relative;
+  left: 10%;
+  width: 90%;
+} 
+  #checkAttendance{
+  /* display: flex; */
+   justify-content: center;
+  margin-top: 20px;
+  width: 40%;
+    /* max-width: 600px; */
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 2px solid #37023f;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+} 
+#studentAttendanceTable{
+  color: white;
+  border-radius: 20px;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #a258c7cb;
+  margin-bottom: 80px;
+  padding-bottom:30px ;
+  padding-top:30px ;
+}
+#studentAttendanceTable table{
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#studentAttendanceTable th,td{
+  padding: 10px;
+    /* border-bottom: 1px solid #ddd; */
+    color: white;
+    background-color: #a378d194;
+    text-align: center;
+
+    border: 1px solid #dddddd7d;
+}
+
+
+#studentAttendanceTable th{
+  background-color: #782dc9;
+  color: #fff;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.attendance-page select{
+  display: inline;
+  margin-right: 40px;
+  padding: 10px ;
+  background-color: #782dc933;
+  border: none;
+  color: rgba(15, 13, 13, 0.779);
+  /* box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.attendance-page button{
+  padding: 10px; 
+  border: none;
+  background-color: #782dc9a9;
+  color: white;
+  font-size: 20px;
+  margin: 20px;
+  margin-top: 40px;
+  /* box-shadow: inset 0 3px 6px rgba(0,0,0,0.1); */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.10);
+}
+.attendance-page button:hover,.attendance-page button:active,.attendance-page button:focus {
+  background-color: #7640b0;
+  border: #3f1fb2cb;
+  cursor: pointer;
+}
+.attendance-page select:hover{
+  background-color: #782dc95d;
+  color: black;
+}
