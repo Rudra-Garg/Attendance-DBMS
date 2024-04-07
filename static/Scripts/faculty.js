@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+
     function fetchSubjectButtons() {
         fetch('/getFacultySubjects?userID=' + userID) // Replace with your actual endpoint to fetch faculty subjects
             .then(response => {
@@ -51,6 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         let defaulter = document.querySelector(".defaulters");
                         if (defaulter.style.display === "block") {
                             fetchDefaulters(subject.subject);
+                        }
+                        let att = document.querySelector(".attendance-page");
+                        if (att.style.display === "block") {
+                            fetchAttendance(subject.subject);
                         }
                     });
                     nav.appendChild(button);
@@ -188,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.remove("active")
         document.querySelector(".logout").classList.remove("active");
+        document.querySelector(".show_attendance").classList.remove("active");
         let leaveSection = document.querySelector(".leave-section");
         if (leaveSection.style.display === "block") {
             leaveSection.style.display = "none";
@@ -202,6 +208,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (defaulter.style.display === "block") {
             defaulter.style.display = "none";
         }
+        let att = document.querySelector(".attendance-page");
+        if (att.style.display === "block") {
+            att.style.display = "none";
+        }
         document.getElementById("subject-0").click();
     }
 
@@ -210,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.add("active");
         document.querySelector(".defaulter_button").classList.remove("active")
+        document.querySelector(".show_attendance").classList.remove("active");
         document.querySelector(".logout").classList.remove("active");
         let attendanceSection = document.querySelector(".attendance-section");
         if (attendanceSection.style.display === "block") {
@@ -224,6 +235,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let defaulter = document.querySelector(".defaulters");
         if (defaulter.style.display === "block") {
             defaulter.style.display = "none";
+        }
+        let att = document.querySelector(".attendance-page");
+        if (att.style.display === "block") {
+            att.style.display = "none";
         }
         fetchLeaveApplication();
     }
@@ -316,11 +331,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Close the dropdown if the user clicks outside of it
-    function defaulters(subject) {
+    function defaulters() {
 
         document.querySelector(".mark").classList.remove("active");
         document.querySelector(".leave").classList.remove("active");
         document.querySelector(".defaulter_button").classList.add("active")
+        document.querySelector(".show_attendance").classList.remove("active");
         document.querySelector(".logout").classList.remove("active");
         let attendanceSection = document.querySelector(".attendance-section");
         if (attendanceSection.style.display === "block") {
@@ -335,6 +351,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let defaulter = document.querySelector(".defaulters");
         if (defaulter.style.display === "none") {
             defaulter.style.display = "block";
+        }
+        let att = document.querySelector(".attendance-page");
+        if (att.style.display === "block") {
+            att.style.display = "none";
         }
         document.getElementById("subject-0").click();
     }
@@ -393,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(attendance => {
                 console.log(attendance)
-                if (attendance.length == 0) {
+                if (attendance.length === 0) {
                     console.log('table is empty')
                     document.querySelector(".emptyTable").style.display = "block";
                     document.querySelector("#defaulters_table").style.display = "none"
@@ -426,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('subjectNav').style.display = "";
         markAttendance();
     });
-    document.querySelector('.leave').addEventListener('click', function (e) {
+    document.querySelector('.leave').addEventListener('click', function () {
         document.getElementById('subjectNav').style.display = "none";
         leaveApplication();
     });
@@ -434,13 +454,127 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('subjectNav').style.display = "";
         defaulters();
     });
-});
-/*
-document.querySelector('.mark').addEventListener('click', function () {
 
-    document.getElementsByClassName("attendance-section").style.display = "none";
-    document.getElementsByClassName("nextBtn").style.display = "visible";
-    document.getElementsByClassName("backBtn").style.display = "visible";
+    function fetchStudentIDs(subject) {
+        fetch('/getStudentUserIDs?subject=' + subject) // Replace with your actual endpoint to fetch student IDs based on the subject
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to fetch student IDs');
+                }
+            })
+            .then(studentIDs => {
+                // Select the dropdown menu element
+                const dropdown = document.getElementById('studentDropdown');
+
+                // Clear previous options
+                dropdown.innerHTML = '';
+
+                // Add a default option
+                const defaultOption = document.createElement('option');
+                defaultOption.text = 'Select Student ID';
+                defaultOption.value = '';
+                dropdown.add(defaultOption);
+
+                // Add each student ID as an option in the dropdown menu
+                studentIDs.forEach(id => {
+                    const option = document.createElement('option');
+                    option.text = id;
+                    option.value = id;
+                    dropdown.add(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function fetchAttendance(subject) {
+        fetchStudentIDs(subject)
+        document.getElementById('attendance-button').addEventListener('click', function () {
+            const userID = document.getElementById('studentDropdown').value;
+            fetch(`/getStudentDetails?userID=${userID}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to fetch student details');
+                    }
+                })
+                .then(student => {
+                    const studentDetailsDiv = document.getElementById('student-details');
+                    studentDetailsDiv.innerHTML = `
+                    <p><strong>Name:</strong> ${student.studentName}</p>
+                    <p><strong>ID:</strong> ${student.studentId}</p>
+                    <p><strong>Email:</strong> ${student.email}</p>
+                `;
+                    fetch(`/getStudentAttendance?userID=${userID}&subject=${selected_subject}`)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Failed to fetch student attendance');
+                            }
+                        })
+                        .then(attendance => {
+                            const tableBody = document.getElementById('attendance-data');
+                            tableBody.innerHTML = ''; // Clear previous data
+
+                            attendance.forEach(record => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                        <td>${record.subject}</td>
+                        <td>${record.status}</td>
+                        <td>${record.date.substring(0, 16)}</td>
+                    `;
+                                tableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
 
 
-});*/
+        });
+    }
+
+
+    function show_attendance() {
+
+        document.querySelector(".mark").classList.remove("active");
+        document.querySelector(".leave").classList.remove("active");
+        document.querySelector(".defaulter_button").classList.remove("active")
+        document.querySelector(".show_attendance").classList.add("active");
+        document.querySelector(".logout").classList.remove("active");
+        let attendanceSection = document.querySelector(".attendance-section");
+        if (attendanceSection.style.display === "block") {
+            attendanceSection.style.display = "none";
+            document.querySelector(".nextBtn").style.display = "none";
+            document.querySelector(".backBtn").style.display = "none";
+        }
+        let leaveSection = document.querySelector(".leave-section");
+        if (leaveSection.style.display === "block") {
+            leaveSection.style.display = "none";
+        }
+        let defaulter = document.querySelector(".defaulters");
+        if (defaulter.style.display === "block") {
+            defaulter.style.display = "none";
+        }
+        let att = document.querySelector(".attendance-page");
+        if (att.style.display === "none") {
+            att.style.display = "block";
+        }
+        document.getElementById("subject-0").click();
+    }
+
+    document.querySelector('.show_attendance').addEventListener('click', function () {
+        document.getElementById('subjectNav').style.display = "";
+        show_attendance();
+    });
+})
+;

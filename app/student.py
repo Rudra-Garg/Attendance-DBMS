@@ -34,7 +34,7 @@ def get_student_attendance():
     userID = request.args.get('userID')
     subject = request.args.get('subject')
     db.reconnect()  # Retrieve subject from query parameter
-    cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s",
+    cursor.execute("SELECT subject, status, date FROM attendance WHERE studentId = %s AND subject = %s order by date",
                    (userID, subject))
     attendance = cursor.fetchall()
     return jsonify(attendance)

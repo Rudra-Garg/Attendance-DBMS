@@ -44,7 +44,8 @@ def get_student_details():
 def get_student_user_ids():
     subject = request.args.get('subject')
     cursor.execute("SELECT studentId FROM student WHERE subject = %s", (subject,))
-    user_ids = [result['studentId'] for result in cursor.fetchall()]
+    results = cursor.fetchall()
+    user_ids = [result['studentId'] for result in results]
     return jsonify(user_ids)
 
 
