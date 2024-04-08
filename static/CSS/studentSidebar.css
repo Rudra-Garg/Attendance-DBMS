@@ -68,6 +68,7 @@
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
     color: #ffffff;
+    border-right: 2px solid white;
     background:#36386dd6;
 }
 
