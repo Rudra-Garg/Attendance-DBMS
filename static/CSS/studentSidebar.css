@@ -13,7 +13,7 @@
 
 
 .wrapper .sidebar{
-    background-color:rgba(40, 55, 71, 0.8);
+    background-color:#406384fa  ;
     position: fixed;
     top: 0;
     left: 0;
@@ -49,7 +49,7 @@
 .wrapper .sidebar ul li a{
   display: block;
   padding: 13px 30px;
-  border-bottom: 1px solid #10558d;
+  border-bottom: 1px solid #8dc5f3;
   color: rgb(241, 237, 237);
   font-size: 16px;
   position: relative;
@@ -67,9 +67,9 @@
 
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
-    color: #0c7db1;
+    color: #ffffff;
 
-    background:white;
+    background:#36386dd6;
     border-right: 2px solid rgb(5, 68, 104);
 }
 

@@ -81,6 +81,7 @@ nav button:hover {
 
 section.Attendance-Section {
     padding: 30px;
+    padding-bottom: 35px;
     text-align: center;
 }
 
@@ -445,18 +446,20 @@ footer {
 }
 
 #leaveTable {
+
     width: 80%;
     max-width: 800px; /* Adjust the maximum width as needed */
-    /* border-collapse: collapse; */
+    border-collapse: collapse;
     margin: 0 auto 20px; /* Center the table horizontally */
     color: #120966;
 }
 
 #leaveTable th,
 #leaveTable td {
+
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ffffff;
     color: #120966;
 
 }
@@ -469,11 +472,13 @@ footer {
 #leaveTable td{
 
 color: #ffffff;
-   background-color: #8585cea5;
+   background-color: #3f8bbe8c;
    
 }
-#leaveTable tr :hover{
+#leaveTable tbody tr:hover{
     cursor: pointer;
+    background-color:#1469a1df ;
+    
 }
 
 .leave-section {
