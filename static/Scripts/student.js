@@ -253,6 +253,14 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(subjects => {
                 const subjectDropdown = document.getElementById('subject');
+                // Clear old options
+                subjectDropdown.innerHTML = '';
+                // Add default option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select Subject';
+                subjectDropdown.appendChild(defaultOption);
+                // Add new options
                 subjects.forEach(subject => {
                     const option = document.createElement('option');
                     option.value = subject.subject;
