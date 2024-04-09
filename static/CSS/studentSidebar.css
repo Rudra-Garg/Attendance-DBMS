@@ -13,7 +13,7 @@
 
 
 .wrapper .sidebar{
-    background-color:rgba(40, 55, 71, 0.8);
+    background-color:#406384fa  ;
     position: fixed;
     top: 0;
     left: 0;
@@ -49,17 +49,17 @@
 .wrapper .sidebar ul li a{
   display: block;
   padding: 13px 30px;
-  border-bottom: 1px solid #10558d;
+  border-bottom: 1px solid #8dc5f3;
   color: rgb(241, 237, 237);
   font-size: 16px;
   position: relative;
-  -moz-user-select: -moz-none;
+  /* -moz-user-select: -moz-none;
   -khtml-user-select: none;
-  -webkit-user-select: none;
+  -webkit-user-select: none; */
 }
 
 .wrapper .sidebar ul li a .icon{
-  color: #dee4ec;
+  color: #dcd3d3;
   width: 30px;
   display: inline-block;
 }
@@ -67,15 +67,14 @@
 
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
-    color: #0c7db1;
-
-    background:white;
-    border-right: 2px solid rgb(5, 68, 104);
+    color: #ffffff;
+    border-right: 2px solid white;
+    background:#36386dd6;
 }
 
 .wrapper .sidebar ul li a:hover .icon,
 .wrapper .sidebar ul li a.active .icon{
-    color: #59a0c4;
+    color: #ffffff;
     
 }
 
