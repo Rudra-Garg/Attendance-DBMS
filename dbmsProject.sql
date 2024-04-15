@@ -1,14 +1,21 @@
 drop database if exists attendance_system;
 create database attendance_system;
 use attendance_system;
-
+create table login
+(
+    userId   int primary key not NULL,
+    userType enum ("Student", "Faculty", "Admin"),
+    userName varchar(50),
+    password varchar(50)
+);
 create table student
 (
     studentId   int,
     studentName varchar(50),
     email       varchar(100),
     subject     varchar(20),
-    primary key (studentId, subject)
+    primary key (studentId, subject),
+    foreign key (studentId) references login (userId)
 );
 
 create table faculty
@@ -19,7 +26,8 @@ create table faculty
     subject                      varchar(20),
     attendencePercentageCriteria decimal(4, 2),
     joiningDate                  date,
-    primary key (facultyId, subject)
+    primary key (facultyId, subject),
+    foreign key (facultyId) references login (userId)
 );
 
 create table attendance
@@ -32,16 +40,6 @@ create table attendance
     foreign key (studentId, subject) references student (studentId, subject),
     foreign key (facultyId, subject) references faculty (facultyId, subject),
     primary key (subject, studentId, facultyId, date)
-);
-
-create table login
-(
-    userId   int primary key not NULL,
-    userType enum ("Student", "Faculty", "Admin"),
-    userName varchar(50),
-    password varchar(50)
-#     foreign key (userId) references student (studentId) on delete cascade,
-#     foreign key (userId) references faculty (facultyId) on delete cascade
 );
 
 INSERT INTO login (userId, userType, userName, password)
