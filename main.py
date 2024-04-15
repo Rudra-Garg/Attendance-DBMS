@@ -6,6 +6,7 @@ def create_app():
     app.register_blueprint(student_bp)
     app.register_blueprint(faculty_bp)
     app.register_blueprint(login_bp)
+    app.register_blueprint(admin_bp)
     return app
 
 

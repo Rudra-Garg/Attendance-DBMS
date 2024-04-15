@@ -32,6 +32,8 @@ document.getElementById('loginBtn').addEventListener('click', function (event) {
                 window.location.href = '/student?userID=' + data.userID; // Redirect to student webpage with userID
             } else if (data.usertype === 'Faculty') {
                 window.location.href = '/faculty?userID=' + data.userID;  // Redirect to faculty webpage
+            } else if (data.usertype === 'Admin') {
+                window.location.href = '/admin?userID=' + data.userID;
             } else {
                 console.error('Unknown user type');
                 // Handle unknown user type error

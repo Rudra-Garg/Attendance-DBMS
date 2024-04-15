@@ -7,7 +7,8 @@ create table student
     studentId   int,
     studentName varchar(50),
     email       varchar(100),
-    subject     varchar(20)
+    subject     varchar(20),
+    primary key (studentId, subject)
 );
 
 create table faculty
@@ -17,7 +18,8 @@ create table faculty
     email                        varchar(50),
     subject                      varchar(20),
     attendencePercentageCriteria decimal(4, 2),
-    joiningDate                  date
+    joiningDate                  date,
+    primary key (facultyId, subject)
 );
 
 create table attendance
@@ -26,19 +28,25 @@ create table attendance
     studentId int,
     facultyId int,
     date      date,
-    status    enum ("Present", "Absent")
+    status    enum ("Present", "Absent"),
+    foreign key (studentId, subject) references student (studentId, subject),
+    foreign key (facultyId, subject) references faculty (facultyId, subject),
+    primary key (subject, studentId, facultyId, date)
 );
 
 create table login
 (
     userId   int primary key not NULL,
-    userType enum ("Student", "Faculty"),
+    userType enum ("Student", "Faculty", "Admin"),
     userName varchar(50),
     password varchar(50)
+#     foreign key (userId) references student (studentId) on delete cascade,
+#     foreign key (userId) references faculty (facultyId) on delete cascade
 );
 
 INSERT INTO login (userId, userType, userName, password)
-VALUES (1, 'Student', 'john.doe@example.com', 'password123'),
+VALUES (0, 'Admin', 'Admin', 'Admin'),
+       (1, 'Student', 'john.doe@example.com', 'password123'),
        (2, 'Student', 'jane.smith@example.com', 'student456'),
        (3, 'Student', 'alice.johnson@example.com', 'pass789'),
        (4, 'Student', 'bob.williams@example.com', 'studentpass'),
@@ -180,13 +188,16 @@ from login;
 create table leave_application
 (
     applicationId int primary key not NULL,
-    studentId int,
-    facultyId int,
-    subject   varchar(20),
-    start_date      date,
-    end_date date,
-    reason varchar(200),
-    status    enum ("Approved", "Rejected", "Pending")
+    studentId     int,
+    facultyId     int,
+    subject       varchar(20),
+    start_date    date,
+    end_date      date,
+    reason        varchar(200),
+    status        enum ("Approved", "Rejected", "Pending"),
+    foreign key (studentId, subject) references student (studentId, subject),
+    foreign key (facultyId, subject) references faculty (facultyId, subject)
 );
 
-insert into leave_application values (1, 1, 11, 'Mathematics', '2023-04-01', '2023-04-10', 'Sick Leave', 'Pending');
+insert into leave_application
+values (1, 1, 11, 'Mathematics', '2023-04-01', '2023-04-10', 'Sick Leave', 'Pending');
