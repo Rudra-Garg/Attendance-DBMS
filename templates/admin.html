@@ -3,52 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/CSS/admin.css">
     <title>Attendance System Admin Page</title>
 </head>
 <body>
 <h1>Attendance System Admin Page</h1>
 
-<h2>Add New Student or Faculty</h2>
-<form id="addMemberForm">
-    <label for="memberType">Member Type:</label>
-    <select id="memberType" required>
-        <option value="student">Student</option>
-        <option value="faculty">Faculty</option>
-    </select><br><br>
-    <p style="display: inline; text-align: left;" class="details" style="display: inline;"><strong>ID:</strong>
-        <span id="UserId"></span></p>
-    <br><br>
+<div class="form-container">
+    <div>
+        <h2>Add New Student or Faculty</h2>
+    <form id="addMemberForm">
+        <label for="memberType">Member Type:</label>
+        <select id="memberType" required>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+        </select><br><br>
+        <p style="display: inline; text-align: left;" class="details" style="display: inline;"><strong>ID:</strong>
+            <span id="UserId"></span></p>
+        <br><br>
+    
+        <label for="name">Name :</label>
+        <input type="text" id="name" required><br><br>
+        <label for="email">Email Id:</label>
+        <input type="text" id="email" required><br><br>
+        <label for="passwd">Password:</label>
+        <input type="text" id="passwd" required><br><br>
+        <button type="submit" class="button">Add Member</button>
+    </form>
+    </div>
+    
+    <div>
+         <!-- Section to remove a student or faculty -->
+    <h2>Remove Student or Faculty</h2>
+    <form id="removeMemberForm">
+        <label for="memberIDToRemove">Member ID:</label>
+        <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
+        <button type="submit" class="button">Remove Member</button>
+    </form>
+    </div>
+   
+    <div>
+        <h2>Add Subject</h2>
+        <form id="AddSubject">
+            <label for="memberIDToRemove">Member ID:</label>
+            <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
+            <button type="submit" class="button">Remove Member</button>
+        </form>
+    </div>
+   
+    
+    
+</div>
 
-    <label for="name">Name :</label>
-    <input type="text" id="name" required><br><br>
-    <label for="email">Email Id:</label>
-    <input type="text" id="email" required><br><br>
-    <label for="passwd">Password:</label>
-    <input type="text" id="passwd" required><br><br>
-    <button type="submit" class="button">Add Member</button>
-</form>
-
-<!-- Section to remove a student or faculty -->
-<h2>Remove Student or Faculty</h2>
-<form id="removeMemberForm">
-    <label for="memberIDToRemove">Member ID:</label>
-    <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
-    <button type="submit" class="button">Remove Member</button>
-</form>
-
-<h2>Add Subject</h2>
-<form id="AddSubject">
-    <label for="memberIDToRemove">Member ID:</label>
-    <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
-    <button type="submit" class="button">Remove Member</button>
-</form>
-<h2>Remove Subject</h2>
-<form id="RemoveSubject">
-    <label for="memberIDToRemove">Member ID:</label>
-    <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
-    <button type="submit" class="button">Remove Member</button>
-</form>
-
+<div>
+    <h2>Remove Subject</h2>
+    <form id="RemoveSubject">
+        <label for="memberIDToRemove">Member ID:</label>
+        <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
+        <button type="submit" class="button">Remove Member</button>
+    </form>
+   </div>
 <script src="/static/Scripts/admin.js"></script>
 
 </body>

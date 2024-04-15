@@ -1,0 +1,92 @@
+/* Resetting default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+   background: linear-gradient(to bottom, #63a3ec9b, #5959c1b9);  
+ 
+   
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 36px;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+}
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive grid layout */
+  grid-gap: 40px;
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.9); /* Adding transparency to the form background */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 400px; /* Set a maximum width */
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+label {
+  font-weight: bold;
+    margin-bottom: 5px; /* Add margin between label and input */
+    display: block; 
+  
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Section headings */
+h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Additional styles */
+.details {
+  display: inline;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#RemoveSubject{
+  background-color: rgba(255, 255, 255, 0.9); /* Adding transparency to the form background */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 95%; /* Set a maximum width */
+    margin: 0 auto; /* Center the form horizontally */
+}
