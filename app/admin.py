@@ -70,13 +70,14 @@ def remove_member():
         userId = request.json['userId']
         cursor.execute("SELECT userType FROM login WHERE userId = %s", (userId,))
         user_type = cursor.fetchall()[0]['userType']
-        cursor.execute("DELETE FROM login WHERE userId = %s", (userId,))
         cursor.execute("DELETE FROM attendance WHERE studentId = %s OR facultyId = %s", (userId, userId))
         cursor.execute("DELETE FROM leave_application WHERE studentId = %s OR facultyId = %s", (userId, userId))
         if user_type == 'Student':
             cursor.execute("DELETE FROM student WHERE studentId = %s", (userId,))
         elif user_type == 'Faculty':
             cursor.execute("DELETE FROM faculty WHERE facultyId = %s", (userId,))
+
+        cursor.execute("DELETE FROM login WHERE userId = %s", (userId,))
         db.commit()
         return jsonify({'message': 'Member removed successfully'}), 200
     except Exception as e:

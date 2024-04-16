@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const successMessage = document.getElementById('successMessage');
                 successMessage.textContent = 'Member added successfully!';
                 successMessage.style.display = 'block';
-                location.reload();
                 // You can optionally redirect or display a success message here
             })
             .catch(error => {
@@ -92,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
                 confirmationSection.style.display = 'block';
-                location.reload();
             })
             .catch(error => {
                 document.getElementById('successMessageRm').innerText = 'Incorrect UserId';
@@ -213,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 successMessage.innerText = 'Subject added successfully!';
                 successMessage.style.display = 'block';
-                location.reload();
             })
             .catch(error => {
                 // Handle errors
@@ -278,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Show success message
                     console.log('Subject removed successfully');
                     removeSubjectForm.reset();
-                    location.reload();
                 } else {
                     throw new Error('Failed to remove subject');
                 }
