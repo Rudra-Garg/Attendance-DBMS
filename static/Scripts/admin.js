@@ -272,8 +272,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => {
                 if (response.ok) {
-                    // Show success message
-                    console.log('Subject removed successfully');
                     removeSubjectForm.reset();
                 } else {
                     throw new Error('Failed to remove subject');
