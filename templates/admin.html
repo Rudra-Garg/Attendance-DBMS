@@ -8,64 +8,73 @@
 </head>
 <body>
 <h1>Admin Portal</h1>
-
-<h2>Add New Student or Faculty</h2>
-<form id="addMemberForm">
-    <label for="memberType">Member Type:</label>
-    <select id="memberType" required>
-        <option value="student">Student</option>
-        <option value="faculty">Faculty</option>
-    </select><br><br>
-    <p style="display: inline; text-align: left;" class="details" style="display: inline;"><strong>ID:</strong>
-        <span id="UserId"></span></p>
-    <br><br>
-
-    <label for="name">Name :</label>
-    <input type="text" id="name" required><br><br>
-    <label for="email">Email Id:</label>
-    <input type="text" id="email" required><br><br>
-    <label for="passwd">Password:</label>
-    <input type="text" id="passwd" required><br><br>
-    <button type="submit" class="button">Add Member</button>
-    <br><br>
-    <p id="successMessage" style="display: none; color: green;"></p>
-</form>
-<!-- Section to remove a student or faculty -->
-<h2>Remove Student or Faculty</h2>
-<div>
-    <form id="removeMemberForm">
-        <label for="memberIDToRemove">User ID:</label>
-        <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
-        <button type="submit" class="button">Remove Member</button>
-        <p id="successMessageRm" style="display: none; color: green;"></p>
+<div class="form-container">
+    <div>
+        <h2>Add New Student or Faculty</h2>
+    <form id="addMemberForm">
+        <label for="memberType">Member Type:</label>
+        <select id="memberType" required>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+        </select><br><br>
+        <p style="display: inline; text-align: left;" class="details" style="display: inline;"><strong>ID:</strong>
+            <span id="UserId"></span></p>
+        <br><br>
+    
+        <label for="name">Name :</label>
+        <input type="text" id="name" required><br><br>
+        <label for="email">Email Id:</label>
+        <input type="text" id="email" required><br><br>
+        <label for="passwd">Password:</label>
+        <input type="text" id="passwd" required><br><br>
+        <button type="submit" class="button">Add Member</button>
+        <br><br>
+        <p id="successMessage" style="display: none; color: green;"></p>
     </form>
-    <div id="confirmationSection" style="display: none;">
-        <h2>Member Details</h2>
-        <div id="memberDetails"></div>
-        <button type="button" id="confirmBtn">Confirm Remove</button>
-        <button type="button" id="cancelBtn">Cancel</button>
     </div>
-</div>
-
-<h2>Add Subject</h2>
-<div>
-    <form id="AddSubjectForm">
-        <label for="AddSubjectID">User ID:</label>
-        <input type="text" id="AddSubjectID" required><br><br>
-        <label for="subjectName">Subject Name:</label>
-        <input type="text" id="subjectName" required><br><br>
-        <input type="hidden" id="facultyAttendancePercentage">
-        <button type="submit" class="button">Add Subject</button>
+    
+    <!-- Section to remove a student or faculty -->
+    <div>
+    <h2>Remove Student or Faculty</h2>
+    
+        <form id="removeMemberForm">
+            <label for="memberIDToRemove">User ID:</label>
+            <input type="text" id="memberIDToRemove" name="memberIDToRemove" required><br><br>
+            <button type="submit" class="button">Remove Member</button>
+            <p id="successMessageRm" style="display: none; color: green; margin-top: 10px;"></p>
+        </form>
         <br>
-        <div id="successMessageAs" style="display: none;"></div>
-
-    </form>
-    <div id="confirmationSectionAs" style="display: none;">
-        <div id="subjectDetails"></div>
-        <button id="confirmBtnAs">Confirm</button>
-        <button id="cancelBtnAs">Cancel</button>
+        <div id="confirmationSection" style="display: none;" class="confirmation">
+            <h2>Member Details</h2>
+            <div id="memberDetails"></div>
+            <button type="button" id="confirmBtn">Confirm Remove</button>
+            <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+    </div>
+    
+    <div>
+    <h2>Add Subject</h2>
+    
+        <form id="AddSubjectForm">
+            <label for="AddSubjectID">User ID:</label>
+            <input type="text" id="AddSubjectID" required><br><br>
+            <label for="subjectName">Subject Name:</label>
+            <input type="text" id="subjectName" required><br><br>
+            <input type="hidden" id="facultyAttendancePercentage">
+            <button type="submit" class="button">Add Subject</button>
+            <br>
+            <div id="successMessageAs" style="display: none; margin-top: 10px;color: green;"></div>
+    
+        </form>
+        <br>
+        <div id="confirmationSectionAs" style="display: none;" class="confirmation">
+            <div id="subjectDetails"></div>
+            <button id="confirmBtnAs">Confirm</button>
+            <button id="cancelBtnAs">Cancel</button>
+        </div>
     </div>
 </div>
+
 
 <h2>Remove Subject</h2>
 <form id="RemoveSubjectForm">
