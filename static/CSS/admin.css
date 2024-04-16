@@ -90,3 +90,20 @@ h2 {
     max-width: 95%; /* Set a maximum width */
     margin: 0 auto; /* Center the form horizontally */
 }
+
+.confirmation{
+  background-color: rgba(255, 255, 255, 0.9); /* Adding transparency to the form background */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Set a maximum width */
+  margin: 0 auto; /* Center the form horizontally */
+  text-align: center;
+}
+
+.confirmation h2{
+  margin-top: 10px;
+}
+.confirmation button{
+ margin-top: 10px;
+}
